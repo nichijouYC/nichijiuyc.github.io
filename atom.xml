@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[nichijouYC's Blog]]></title>
+  <link href="http://nichijouyc.github.io/atom.xml" rel="self"/>
+  <link href="http://nichijouyc.github.io/"/>
+  <updated>2015-07-21T11:14:15+08:00</updated>
+  <id>http://nichijouyc.github.io/</id>
+  <author>
+    <name><![CDATA[nichijouYC]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[My First Octopress Blog]]></title>
+    <link href="http://nichijouyc.github.io/blog/2015/07/20/my-first-octopress-blog/"/>
+    <updated>2015-07-20T11:28:20+08:00</updated>
+    <id>http://nichijouyc.github.io/blog/2015/07/20/my-first-octopress-blog</id>
+    <content type="html"><![CDATA[<p>Hello,Octopress</p>
+]]></content>
+  </entry>
+  
+</feed>
