@@ -4,7 +4,7 @@
   <title><![CDATA[nichijouYC's Blog]]></title>
   <link href="http://nichijouyc.github.io/atom.xml" rel="self"/>
   <link href="http://nichijouyc.github.io/"/>
-  <updated>2015-07-21T11:14:15+08:00</updated>
+  <updated>2015-07-21T11:34:17+08:00</updated>
   <id>http://nichijouyc.github.io/</id>
   <author>
     <name><![CDATA[nichijouYC]]></name>
@@ -12,6 +12,100 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[GitHub_Octopress_Blog_Tutorial]]></title>
+    <link href="http://nichijouyc.github.io/blog/2015/07/21/github-octopress-blog-tutorial/"/>
+    <updated>2015-07-21T11:32:41+08:00</updated>
+    <id>http://nichijouyc.github.io/blog/2015/07/21/github-octopress-blog-tutorial</id>
+    <content type="html"><![CDATA[<h2>使用Octopress在GitHub上搭建个人Blog</h2>
+
+<p><a href="http://octopress.org">Octopress首页</a></p>
+
+<h3>步骤</h3>
+
+<ul>
+<li>安装Git(<a href="http://git-scm.com/download/">地址</a>),配置Git与GitHub相连</li>
+<li>安装Ruby，版本1.9.3以上
+
+<ul>
+<li><a href="http://octopress.org/docs/setup/rbenv/">Rbenv安装Ruby教程（Linux or OS X）</a></li>
+<li><a href="http://rubyinstaller.org">RubyInstaller安装Ruby（Win）</a></li>
+</ul>
+</li>
+<li>安装ExecJS(Linux)(<a href="https://github.com/sstephenson/execjs">地址</a>)，或者安装Devkit(Win)(<a href="http://rubyinstaller.org/downloads/">地址</a>)
+由于本机使用的是Win7，所以以下步骤为安装DevKit后的步骤。Linux或OS X系统的设置步骤见<a href="http://octopress.org/docs/setup/">Octopress官网教程</a></li>
+<li>解压DevKit后（注意：解压目录中必须没有中文和空格），在命令行输入以下命令进行安装
+
+<ol>
+<li>cd 进入DevKit目录</li>
+<li>ruby dk.rb init</li>
+<li>ruby dk.rb install</li>
+</ol>
+</li>
+<li>用Git安装Octopress，在Ruby目录下安装
+
+<ol>
+<li>cd 进入Ruby目录</li>
+<li>git clone git://github.com/imathis/octopress.git octopress</li>
+</ol>
+</li>
+<li>安装依赖工具bundle。由于国内网络原因，可能直接安装会出现错误，建议替换淘宝源可解决(<a href="http://ruby.taobao.org/">地址</a>)
+
+<ol>
+<li>cd 进入Octopress目录</li>
+<li>gem install bundle</li>
+<li>bundle install（可能提示缺少某些依赖包，按照提示安装缺少的依赖包即可）</li>
+</ol>
+</li>
+<li>安装Octopress默认主题
+
+<ol>
+<li>rake install</li>
+</ol>
+</li>
+<li>支持中文编码（配置环境变量）
+
+<ol>
+<li>LANG=zh_CN.UTF-8</li>
+<li>LC_ALL=zh_CN.UTF-8</li>
+</ol>
+</li>
+<li>修改Blog名，作者等配置
+
+<ol>
+<li>修改octopress/_config.yml文件的url，title，subtitle，author等值</li>
+</ol>
+</li>
+<li>部署和预览（发布新博客或者修改配置后）
+
+<ol>
+<li>rake generate</li>
+<li>rake preview</li>
+<li>本地访问地址：<a href="http://localhost:4000/">http://localhost:4000/</a></li>
+</ol>
+</li>
+<li>写博客
+
+<ol>
+<li>rake new_post[&ldquo;title&rdquo;]</li>
+<li>修改octopress/source/_posts下的md文件</li>
+<li>重新发布和预览</li>
+</ol>
+</li>
+<li>部署在Github上
+
+<ol>
+<li>在GitHub上新建一个名为user-id.github.io的版本库（user-id为你的GitHub用户名）。GitHub会自动为其生成网站地址user-id.github.io</li>
+<li>将Octopress目录中的public文件夹上传至GitHub版本库中</li>
+<li>访问user-id.github.io即可看到生成的博客页面</li>
+<li>如果对页面有修改，先在本地进行部署和预览，然后将public文件夹上传即可</li>
+</ol>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[My First Octopress Blog]]></title>
