@@ -4,7 +4,7 @@
   <title><![CDATA[nichijouYC's Blog]]></title>
   <link href="http://nichijouyc.github.io/atom.xml" rel="self"/>
   <link href="http://nichijouyc.github.io/"/>
-  <updated>2015-07-23T13:47:31+08:00</updated>
+  <updated>2015-07-24T15:36:11+08:00</updated>
   <id>http://nichijouyc.github.io/</id>
   <author>
     <name><![CDATA[nichijouYC]]></name>
@@ -18,7 +18,13 @@
     <link href="http://nichijouyc.github.io/blog/2015/07/22/scrapy-quick-start/"/>
     <updated>2015-07-22T10:39:42+08:00</updated>
     <id>http://nichijouyc.github.io/blog/2015/07/22/scrapy-quick-start</id>
-    <content type="html"><![CDATA[<h2>Scrapy环境搭建及简单实例</h2>
+    <content type="html"><![CDATA[<p>Scrapy的官网教程十分详细，并且也有中文版，推荐阅读。</p>
+
+<p><a href="http://doc.scrapy.org/en/1.0/intro/overview.html">英文版</a></p>
+
+<p><a href="http://scrapy-chs.readthedocs.org/zh_CN/latest/intro/overview.html">中文版</a></p>
+
+<h2>Scrapy环境搭建及简单实例</h2>
 
 <p>Scrapy(<a href="http://scrapy.org/">官网</a>)是Python环境下的一个Web抓取框架，可以方便的抓取Web页面并且提取结构化数据。</p>
 
