@@ -4,7 +4,7 @@
   <title><![CDATA[nichijouYC's Blog]]></title>
   <link href="http://nichijouyc.github.io/atom.xml" rel="self"/>
   <link href="http://nichijouyc.github.io/"/>
-  <updated>2015-08-03T21:42:26+08:00</updated>
+  <updated>2015-08-03T21:59:01+08:00</updated>
   <id>http://nichijouyc.github.io/</id>
   <author>
     <name><![CDATA[nichijouYC]]></name>
@@ -228,6 +228,14 @@
 <li>访问user-id.github.io即可看到生成的博客页面</li>
 <li>如果对页面有修改，先在本地进行部署和预览，然后将public文件夹上传即可</li>
 </ol>
+</li>
+<li>加快Blog访问速度
+
+<ul>
+<li>由于HTML中的某些资源(字体和脚本)有由google提供的，所以国内访问起来很慢。使用国内的替代品可以解决(<a href="http://libs.useso.com/">360</a>)</li>
+<li>将source/<em>includes/head.html和source/</em>include/custom/head.htmlz中的googleapis.com改成useso.com 即可</li>
+<li>若不使用Google Analyze的话，可以将source/_includes/head.html中的包含google_analytics页面注释掉</li>
+</ul>
 </li>
 </ul>
 
