@@ -4,7 +4,7 @@
   <title><![CDATA[nichijouYC's Blog]]></title>
   <link href="http://nichijouyc.github.io/atom.xml" rel="self"/>
   <link href="http://nichijouyc.github.io/"/>
-  <updated>2015-07-24T15:36:11+08:00</updated>
+  <updated>2015-08-03T21:16:46+08:00</updated>
   <id>http://nichijouyc.github.io/</id>
   <author>
     <name><![CDATA[nichijouYC]]></name>
@@ -26,9 +26,16 @@
 
 <h2>Scrapy环境搭建及简单实例</h2>
 
+<!-- more -->
+
+
+<hr />
+
 <p>Scrapy(<a href="http://scrapy.org/">官网</a>)是Python环境下的一个Web抓取框架，可以方便的抓取Web页面并且提取结构化数据。</p>
 
 <h3>Win7下搭建Python爬虫库Scrapy步骤</h3>
+
+<hr />
 
 <p>Scrapy官网安装教程(<a href="http://doc.scrapy.org/en/1.0/intro/install.html">地址</a>)</p>
 
@@ -43,7 +50,8 @@
 <li>下载pip文件pip-7.1.0.tar.gz(<a href="https://pypi.python.org/pypi/pip#downloads">地址</a>)</li>
 <li>下载setuptools文件setuptools-18.0.1.tar.gz(<a href="https://pypi.python.org/pypi/setuptools">地址</a>)</li>
 <li>解压文件到Python安装目录下的 Lib/site-packages/下</li>
-<li>进入PIP目录运行setup.py安装</li>
+<li>进入PIP目录运行setup.py安装(python setup.py install)</li>
+<li>将Python安装目录下的\Scripts 加入环境变量Path中</li>
 </ol>
 </li>
 <li>安装Scrapy
@@ -57,6 +65,8 @@
 
 
 <h3>使用Scrapy爬虫的一个简单实例</h3>
+
+<hr />
 
 <p>Scrapy官网实例教程(<a href="http://doc.scrapy.org/en/1.0/intro/tutorial.html">地址</a>)</p>
 
@@ -137,6 +147,9 @@
 <p><a href="http://octopress.org">Octopress首页</a></p>
 
 <h3>步骤</h3>
+
+<!-- more -->
+
 
 <ul>
 <li>安装Git(<a href="http://git-scm.com/download/">地址</a>),配置Git与GitHub相连</li>
