@@ -181,6 +181,32 @@ RubyInstaller安装Ruby（Win） 安装ExecJS( &hellip;">
 <li>若不使用Google Analyze的话，可以将source/_includes/head.html中的包含google_analytics页面注释掉</li>
 </ul>
 </li>
+<li>阅读更多(read on)
+
+<ul>
+<li>正常情况下，Octopress首页会显示每篇blog的全部内容，这样会使得页面很长，不易浏览和阅读早期的blog</li>
+<li>我们可以在每篇blog中添加<code>read on</code>按钮，使得在首页只显示本篇blog的部分内容，点击<code>read on</code>按钮可以进入本blog页面显示全部内容</li>
+<li>完成这个效果，只要编辑blog的md文件，在你想要部分显示内容的后面插入<code>&lt;!-- more --&gt;</code>即可</li>
+</ul>
+</li>
+<li>插入代码，并设置语法高亮
+
+<ul>
+<li>行内代码如<code>cd ..</code>,使用两个反引号``包含代码片段</li>
+<li>多行代码块，可以使用下图方式插入代码并且实现语法高亮
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="p">{</span> <span class="o">%</span> <span class="n">codeblock</span> <span class="p">[</span><span class="n">title</span><span class="p">]</span> <span class="p">[</span><span class="n">lang</span><span class="p">:</span><span class="n">language</span><span class="p">]</span> <span class="p">[</span><span class="n">url</span><span class="p">]</span> <span class="p">[</span><span class="n">link</span> <span class="n">text</span><span class="p">]</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'><span class="n">python</span> <span class="n">code</span>
+</span><span class='line'><span class="p">{</span> <span class="o">%</span> <span class="n">endcodeblock</span> <span class="o">%</span><span class="p">}</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+注意在实际使用中去掉<code>{ %</code>中的空格</li>
+<li>注意多行代码块的这个语法在普通markdown中不适用。在普通markdown语法中，可以通过<code>``` python</code>来插入代码块并且设置语法高亮</li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -205,8 +231,6 @@ RubyInstaller安装Ruby（Win） 安装ExecJS( &hellip;">
     </p>
     
       <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://nichijouyc.github.io/blog/2015/07/21/github-octopress-blog-tutorial/" data-via="" data-counturl="http://nichijouyc.github.io/blog/2015/07/21/github-octopress-blog-tutorial/" >Tweet</a>
   
   
   
@@ -270,16 +294,6 @@ RubyInstaller安装Ruby（Win） 安装ExecJS( &hellip;">
 
 
 
-
-  <script type="text/javascript">
-    (function(){
-      var twitterWidgets = document.createElement('script');
-      twitterWidgets.type = 'text/javascript';
-      twitterWidgets.async = true;
-      twitterWidgets.src = '//platform.twitter.com/widgets.js';
-      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-    })();
-  </script>
 
 
 
