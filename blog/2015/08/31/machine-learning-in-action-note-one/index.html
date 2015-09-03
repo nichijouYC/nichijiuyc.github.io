@@ -5,12 +5,16 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>My First Octopress Blog - nichijouYC's Blog</title>
+  <title>机器学习实战笔记(一) - nichijouYC's Blog</title>
   <meta name="author" content="nichijouYC">
 
   
-  <meta name="description" content="Hello,Octopress
-">
+  <meta name="description" content="机器学习算法分类 监督学习(有训练集) 离散型目标变量(分类器算法) knn(最近邻算法)
+svm(支持向量机)
+决策树算法
+贝叶斯算法 连续、数值型目标变量(回归算法) Logistic回归算法
+线性回归算法
+树回归 无监督学习(无训练集) 聚类算法 k-means(k均值算法) 密度估计 & &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +23,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://nichijouyc.github.io/blog/2015/07/20/my-first-octopress-blog/">
+  <link rel="canonical" href="http://nichijouyc.github.io/blog/2015/08/31/machine-learning-in-action-note-one/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="nichijouYC's Blog" type="application/atom+xml">
@@ -69,7 +73,7 @@
   
   <header>
     
-      <h1 class="entry-title">My First Octopress Blog</h1>
+      <h1 class="entry-title">机器学习实战笔记(一)</h1>
     
     
       <p class="meta">
@@ -78,14 +82,84 @@
 
 
 
-<time class='entry-date' datetime='2015-07-20T11:28:20+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:28 am</span></time>
+<time class='entry-date' datetime='2015-08-31T22:05:24+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>10:05 pm</span></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>Hello,Octopress</p>
+<div class="entry-content"><h2>机器学习算法分类</h2>
+
+<ul>
+<li>监督学习(有训练集)
+
+<ul>
+<li>离散型目标变量(分类器算法)
+
+<ul>
+<li>knn(最近邻算法)</li>
+<li>svm(支持向量机)</li>
+<li>决策树算法</li>
+<li>贝叶斯算法</li>
+</ul>
+</li>
+<li>连续、数值型目标变量(回归算法)
+
+<ul>
+<li>Logistic回归算法</li>
+<li>线性回归算法</li>
+<li>树回归</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>无监督学习(无训练集)
+
+<ul>
+<li>聚类算法
+
+<ul>
+<li>k-means(k均值算法)</li>
+</ul>
+</li>
+<li>密度估计</li>
+</ul>
+</li>
+</ul>
+
+
+<p>&lt;&lt;机器学习实战>>一书中讲解以下相关算法:</p>
+
+<!-- more -->
+
+
+<ul>
+<li>knn</li>
+<li>决策树</li>
+<li>朴素贝叶斯分类</li>
+<li>Logistic回归</li>
+<li>支持向量机</li>
+<li>AdaBoost</li>
+<li>线性回归</li>
+<li>树回归</li>
+<li>k-means</li>
+<li>Apriori</li>
+<li>FP-growth</li>
+</ul>
+
+
+<h2>机器学习一般步骤</h2>
+
+<ol>
+<li>收集数据</li>
+<li>准备输入数据(调整格式，方便使用代码读取)</li>
+<li>分析输入数据(确保没有垃圾数据，做归一化处理)</li>
+<li>训练算法</li>
+<li>测试算法(评估效果，并且不断迭代4，5步进行优化)</li>
+<li>使用算法</li>
+</ol>
+
 </div>
 
 
@@ -101,7 +175,7 @@
 
 
 
-<time class='entry-date' datetime='2015-07-20T11:28:20+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>11:28 am</span></time>
+<time class='entry-date' datetime='2015-08-31T22:05:24+08:00'><span class='date'><span class='date-month'>Aug</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>10:05 pm</span></time>
       
 
 
@@ -116,8 +190,10 @@
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/2015/07/22/scrapy-quick-start/" title="Previous Post: Scrapy_Quick_Start">&laquo; Scrapy_Quick_Start</a>
       
-        <a class="basic-alignment right" href="/blog/2015/07/21/github-octopress-blog-tutorial/" title="Next Post: GitHub_Octopress_Blog_Tutorial">GitHub_Octopress_Blog_Tutorial &raquo;</a>
+      
+        <a class="basic-alignment right" href="/blog/2015/09/02/machine-learning-in-action-note-two/" title="Next Post: 机器学习实战笔记(二)">机器学习实战笔记(二) &raquo;</a>
       
     </p>
   </footer>

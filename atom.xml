@@ -4,7 +4,7 @@
   <title><![CDATA[nichijouYC's Blog]]></title>
   <link href="http://nichijouyc.github.io/atom.xml" rel="self"/>
   <link href="http://nichijouyc.github.io/"/>
-  <updated>2015-08-29T23:47:29+08:00</updated>
+  <updated>2015-09-03T21:20:31+08:00</updated>
   <id>http://nichijouyc.github.io/</id>
   <author>
     <name><![CDATA[nichijouYC]]></name>
@@ -12,6 +12,161 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[机器学习实战笔记(二)]]></title>
+    <link href="http://nichijouyc.github.io/blog/2015/09/02/machine-learning-in-action-note-two/"/>
+    <updated>2015-09-02T14:29:54+08:00</updated>
+    <id>http://nichijouyc.github.io/blog/2015/09/02/machine-learning-in-action-note-two</id>
+    <content type="html"><![CDATA[<h2>分类算法——K近邻算法(K-Nearest Nerghboor)</h2>
+
+<h3>简单介绍</h3>
+
+<ul>
+<li>将未知样本与已知样本的特征属性作对比，计算与已有样本之间的距离</li>
+<li>取与未知样本最小距离的k个已知样本，统计样本中出现次数最多的分类作为未知样本的分类</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h3>优缺点</h3>
+
+<ul>
+<li>优点
+
+<ul>
+<li>精度高，对异常值不敏感</li>
+</ul>
+</li>
+<li>缺点
+
+<ul>
+<li>复杂度高，效率低</li>
+<li>每次需计算未知样本点与每个已知样本点的距离，时间久</li>
+<li>每次分类时需要将所有已知点的特征属性存储下来，空间大</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>步骤</h3>
+
+<ol>
+<li>计算未知点与已知点的距离(欧几里德距离)</li>
+<li>按距离递增排序</li>
+<li>选取与未知点距离最小的k个已知点</li>
+<li>确定k个点的所在类别</li>
+<li>将k个点类别最多的类别作为未知点的类别</li>
+</ol>
+
+
+<h3>实现工具</h3>
+
+<p>Python机器学习工具包<code>sklearn</code>中的<code>KNeighborsClassifier</code>类</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#-*- coding:utf8 -*-</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+</span><span class='line'><span class="c">#创建分类器，设置k值为3，取最近3个邻居</span>
+</span><span class='line'><span class="n">neigh</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+</span><span class='line'><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]]</span>
+</span><span class='line'><span class="n">Y</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">]</span>
+</span><span class='line'><span class="n">neigh</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
+</span><span class='line'><span class="k">print</span> <span class="n">neigh</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">]])</span>
+</span><span class='line'><span class="k">print</span> <span class="n">neigh</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">]])</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[机器学习实战笔记(一)]]></title>
+    <link href="http://nichijouyc.github.io/blog/2015/08/31/machine-learning-in-action-note-one/"/>
+    <updated>2015-08-31T22:05:24+08:00</updated>
+    <id>http://nichijouyc.github.io/blog/2015/08/31/machine-learning-in-action-note-one</id>
+    <content type="html"><![CDATA[<h2>机器学习算法分类</h2>
+
+<ul>
+<li>监督学习(有训练集)
+
+<ul>
+<li>离散型目标变量(分类器算法)
+
+<ul>
+<li>knn(最近邻算法)</li>
+<li>svm(支持向量机)</li>
+<li>决策树算法</li>
+<li>贝叶斯算法</li>
+</ul>
+</li>
+<li>连续、数值型目标变量(回归算法)
+
+<ul>
+<li>Logistic回归算法</li>
+<li>线性回归算法</li>
+<li>树回归</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>无监督学习(无训练集)
+
+<ul>
+<li>聚类算法
+
+<ul>
+<li>k-means(k均值算法)</li>
+</ul>
+</li>
+<li>密度估计</li>
+</ul>
+</li>
+</ul>
+
+
+<p>&lt;&lt;机器学习实战>>一书中讲解以下相关算法:</p>
+
+<!-- more -->
+
+
+<ul>
+<li>knn</li>
+<li>决策树</li>
+<li>朴素贝叶斯分类</li>
+<li>Logistic回归</li>
+<li>支持向量机</li>
+<li>AdaBoost</li>
+<li>线性回归</li>
+<li>树回归</li>
+<li>k-means</li>
+<li>Apriori</li>
+<li>FP-growth</li>
+</ul>
+
+
+<h2>机器学习一般步骤</h2>
+
+<ol>
+<li>收集数据</li>
+<li>准备输入数据(调整格式，方便使用代码读取)</li>
+<li>分析输入数据(确保没有垃圾数据，做归一化处理)</li>
+<li>训练算法</li>
+<li>测试算法(评估效果，并且不断迭代4，5步进行优化)</li>
+<li>使用算法</li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Scrapy_Quick_Start]]></title>
@@ -103,8 +258,9 @@
 <ol>
 <li>在spiders文件夹下新建spider.py文件</li>
 <li>定义一个继承scrapy.Spider的BlogSpider类</li>
-<li>定义BlogSpider类的name(名称)，start_urls(抓取网页url)和parse方法(对抓到的页面html的处理)
-  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<li><p>定义BlogSpider类的name(名称)，start_urls(抓取网页url)和parse方法(对抓到的页面html的处理)</p>
+
+<p> <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -123,26 +279,26 @@
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'>        <span class="kn">from</span> <span class="nn">scrapy</span> <span class="kn">import</span> <span class="n">Spider</span>
-</span><span class='line'>        <span class="kn">from</span> <span class="nn">scrapy.selector</span> <span class="kn">import</span> <span class="n">Selector</span>
-</span><span class='line'>        <span class="kn">import</span> <span class="nn">sys</span>
-</span><span class='line'>        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;C:</span><span class="se">\</span><span class="s">out.txt&#39;</span><span class="p">,</span><span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="c">#将打印信息输出在相应的位置下</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">scrapy</span> <span class="kn">import</span> <span class="n">Spider</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">scrapy.selector</span> <span class="kn">import</span> <span class="n">Selector</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">sys</span>
+</span><span class='line'><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;C:</span><span class="se">\</span><span class="s">out.txt&#39;</span><span class="p">,</span><span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="c">#将打印信息输出在相应的位置下</span>
 </span><span class='line'>
-</span><span class='line'>        <span class="k">class</span> <span class="nc">BlogSpider</span><span class="p">(</span><span class="n">Spider</span><span class="p">):</span>
-</span><span class='line'>            <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;blogspider&quot;</span>
-</span><span class='line'>            <span class="n">allowed_domains</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;github.io&quot;</span><span class="p">]</span>
-</span><span class='line'>            <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span>
-</span><span class='line'>            <span class="s">&quot;<a href="http://nichijouyc.github.io/blog/archives/&amp;quot;">http://nichijouyc.github.io/blog/archives/&amp;quot;</a></span>
-</span><span class='line'>            <span class="p">]</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">BlogSpider</span><span class="p">(</span><span class="n">Spider</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;blogspider&quot;</span>
+</span><span class='line'>    <span class="n">allowed_domains</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;github.io&quot;</span><span class="p">]</span>
+</span><span class='line'>    <span class="n">start_urls</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class='line'>    <span class="s">&quot;<a href="http://nichijouyc.github.io/blog/archives/&amp;quot;">http://nichijouyc.github.io/blog/archives/&amp;quot;</a></span>
+</span><span class='line'>    <span class="p">]</span>
 </span><span class='line'>
-</span><span class='line'>            <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
-</span><span class='line'>                <span class="k">print</span> <span class="s">&#39;Blog List:&#39;</span>
-</span><span class='line'>                <span class="n">sel</span> <span class="o">=</span> <span class="n">Selector</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-</span><span class='line'>                <span class="n">blogs</span> <span class="o">=</span> <span class="n">sel</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;//article/div/article/h1/a/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
-</span><span class='line'>                <span class="k">for</span> <span class="n">blog</span> <span class="ow">in</span> <span class="n">blogs</span><span class="p">:</span>
-</span><span class='line'>                    <span class="k">print</span> <span class="n">blog</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;gb2312&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">print</span> <span class="s">&#39;Blog List:&#39;</span>
+</span><span class='line'>        <span class="n">sel</span> <span class="o">=</span> <span class="n">Selector</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">blogs</span> <span class="o">=</span> <span class="n">sel</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&#39;//article/div/article/h1/a/text()&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+</span><span class='line'>        <span class="k">for</span> <span class="n">blog</span> <span class="ow">in</span> <span class="n">blogs</span><span class="p">:</span>
+</span><span class='line'>            <span class="k">print</span> <span class="n">blog</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;gb2312&#39;</span><span class="p">)</span>
 </span><span class='line'>
-</span></code></pre></td></tr></table></div></figure></li>
+</span></code></pre></td></tr></table></div></figure></p></li>
 </ol>
 </li>
 <li><p>开始抓取</p>
@@ -252,7 +408,7 @@
 
 <ul>
 <li>由于HTML中的某些资源(字体和脚本)有由google提供的，所以国内访问起来很慢。使用国内的替代品可以解决(<a href="http://libs.useso.com/">360</a>)</li>
-<li>将source/<em>includes/head.html和source/</em>include/custom/head.htmlz中的googleapis.com改成useso.com 即可</li>
+<li>将source/_includes/head.html和source/_include/custom/head.html中的googleapis.com改成useso.com 即可</li>
 <li>若不使用Google Analyze的话，可以将source/_includes/head.html中的包含google_analytics页面注释掉</li>
 </ul>
 </li>

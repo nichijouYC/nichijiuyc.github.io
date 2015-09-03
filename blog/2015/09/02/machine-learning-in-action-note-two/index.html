@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>机器学习实战笔记(二) - nichijouYC's Blog</title>
+  <meta name="author" content="nichijouYC">
+
+  
+  <meta name="description" content="分类算法——K近邻算法(K-Nearest Nerghboor) 简单介绍 将未知样本与已知样本的特征属性作对比，计算与已有样本之间的距离
+取与未知样本最小距离的k个已知样本，统计样本中出现次数最多的分类作为未知样本的分类 优缺点 优点 精度高，对异常值不敏感 缺点 复杂度高，效率低 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nichijouyc.github.io/blog/2015/09/02/machine-learning-in-action-note-two/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="nichijouYC's Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.useso.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <!-- 
+ -->
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">nichijouYC's Blog</a></h1>
+  
+    <h2>Hello World!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="nichijouyc.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">机器学习实战笔记(二)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-09-02T14:29:54+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>2:29 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>分类算法——K近邻算法(K-Nearest Nerghboor)</h2>
+
+<h3>简单介绍</h3>
+
+<ul>
+<li>将未知样本与已知样本的特征属性作对比，计算与已有样本之间的距离</li>
+<li>取与未知样本最小距离的k个已知样本，统计样本中出现次数最多的分类作为未知样本的分类</li>
+</ul>
+
+
+<!-- more -->
+
+
+<h3>优缺点</h3>
+
+<ul>
+<li>优点
+
+<ul>
+<li>精度高，对异常值不敏感</li>
+</ul>
+</li>
+<li>缺点
+
+<ul>
+<li>复杂度高，效率低</li>
+<li>每次需计算未知样本点与每个已知样本点的距离，时间久</li>
+<li>每次分类时需要将所有已知点的特征属性存储下来，空间大</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>步骤</h3>
+
+<ol>
+<li>计算未知点与已知点的距离(欧几里德距离)</li>
+<li>按距离递增排序</li>
+<li>选取与未知点距离最小的k个已知点</li>
+<li>确定k个点的所在类别</li>
+<li>将k个点类别最多的类别作为未知点的类别</li>
+</ol>
+
+
+<h3>实现工具</h3>
+
+<p>Python机器学习工具包<code>sklearn</code>中的<code>KNeighborsClassifier</code>类</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="c">#-*- coding:utf8 -*-</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+</span><span class='line'><span class="c">#创建分类器，设置k值为3，取最近3个邻居</span>
+</span><span class='line'><span class="n">neigh</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+</span><span class='line'><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]]</span>
+</span><span class='line'><span class="n">Y</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">]</span>
+</span><span class='line'><span class="n">neigh</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">)</span>
+</span><span class='line'><span class="k">print</span> <span class="n">neigh</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">]])</span>
+</span><span class='line'><span class="k">print</span> <span class="n">neigh</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="p">]])</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">nichijouYC</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-09-02T14:29:54+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>2</span><span class='date-suffix'>nd</span>, <span class='date-year'>2015</span></span> <span class='time'>2:29 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/08/31/machine-learning-in-action-note-one/" title="Previous Post: 机器学习实战笔记(一)">&laquo; 机器学习实战笔记(一)</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/09/02/machine-learning-in-action-note-two/">机器学习实战笔记(二)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/31/machine-learning-in-action-note-one/">机器学习实战笔记(一)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/22/scrapy-quick-start/">Scrapy_Quick_Start</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/21/github-octopress-blog-tutorial/">GitHub_Octopress_Blog_Tutorial</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/20/my-first-octopress-blog/">My First Octopress Blog</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - nichijouYC -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
