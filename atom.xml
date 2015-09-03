@@ -4,7 +4,7 @@
   <title><![CDATA[nichijouYC's Blog]]></title>
   <link href="http://nichijouyc.github.io/atom.xml" rel="self"/>
   <link href="http://nichijouyc.github.io/"/>
-  <updated>2015-09-03T21:20:31+08:00</updated>
+  <updated>2015-09-04T00:46:36+08:00</updated>
   <id>http://nichijouyc.github.io/</id>
   <author>
     <name><![CDATA[nichijouYC]]></name>
@@ -12,6 +12,92 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[机器学习实战笔记(三)]]></title>
+    <link href="http://nichijouyc.github.io/blog/2015/09/03/machine-learning-in-action-note-three/"/>
+    <updated>2015-09-03T22:24:38+08:00</updated>
+    <id>http://nichijouyc.github.io/blog/2015/09/03/machine-learning-in-action-note-three</id>
+    <content type="html"><![CDATA[<h2>分类算法——决策树(decision tree)</h2>
+
+<h3>简单介绍</h3>
+
+<p>通过已有的样本数据构建树形分类器对未知样本进行分类</p>
+
+<!--more-->
+
+
+<h3>优缺点</h3>
+
+<ul>
+<li>优点
+
+<ul>
+<li>计算复杂度不高，易于理解</li>
+<li>效率高，决策树只需要一次构建，反复使用</li>
+</ul>
+</li>
+<li>缺点
+
+<ul>
+<li>容易发生过拟合问题(指对已有样本数据分类结果较好，但对新数据和与样本数据相差较大的数据分类结果较差)</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>实现步骤(使用ID3算法生成决策树)</h3>
+
+<ol>
+<li>计算初始样本的熵</li>
+<li>计算按每个特征属性划分数据后获得的信息增益</li>
+<li>选择增益最高的特征属性作为划分依据，划分样本</li>
+<li>重复1-3步，递归生成整个决策树，直到特征属性全部划分完。<br/>
+若特征属性全部划分完后，仍还有剩余样本无法分类，则选择所属类别中出现次数最多的类别作为分支的类别</li>
+</ol>
+
+
+<h3>熵(entropy)</h3>
+
+<ul>
+<li>1948年，香农提出了“信息熵”的概念，解决了对信息的量化度量问题。香农用信息熵的概念来描述信源的不确定度。</li>
+<li>变量的不确定性越大，熵也就越大，把它搞清楚所需要的信息量也就越大。</li>
+<li>一个系统越是有序，信息熵就越低；反之，一个系统越是混乱，信息熵就越高。所以，信息熵也可以说是系统有序化程度的一个度量。</li>
+<li>计算公式：<br/>
+<img src="http://nichijouyc.github.io/pic/entropy.jpg" alt="entropy" /></li>
+</ul>
+
+
+<h3>信息增益(infoGain)</h3>
+
+<ul>
+<li>信息增益=infoGain=baseEntropy-newEntropy=原有熵-当前熵</li>
+<li>特征T给分类F带来的信息增益为IG(T)=H(F)-H(F|T)。</li>
+<li>H(F|T)包含两种情况：一种是特征T出现，标记为t，一种是特征T不出现，标记为t'</li>
+<li>所以H(F|T)=P(t)H(F|t)+P(t')H(F|t')</li>
+</ul>
+
+
+<h3>实现工具包</h3>
+
+<p>Python机器学习工具包<code>sklearn</code>中的<code>tree</code>类</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
+</span><span class='line'><span class="n">X</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+</span><span class='line'><span class="n">Y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</span><span class='line'><span class="n">clf</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">DecisionTreeClassifier</span><span class="p">()</span>
+</span><span class='line'><span class="n">clf</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</span><span class='line'><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[机器学习实战笔记(二)]]></title>
@@ -51,7 +137,7 @@
 </ul>
 
 
-<h3>步骤</h3>
+<h3>实现步骤</h3>
 
 <ol>
 <li>计算未知点与已知点的距离(欧几里德距离)</li>
@@ -62,7 +148,7 @@
 </ol>
 
 
-<h3>实现工具</h3>
+<h3>实现工具包</h3>
 
 <p>Python机器学习工具包<code>sklearn</code>中的<code>KNeighborsClassifier</code>类</p>
 
@@ -94,7 +180,16 @@
     <link href="http://nichijouyc.github.io/blog/2015/08/31/machine-learning-in-action-note-one/"/>
     <updated>2015-08-31T22:05:24+08:00</updated>
     <id>http://nichijouyc.github.io/blog/2015/08/31/machine-learning-in-action-note-one</id>
-    <content type="html"><![CDATA[<h2>机器学习算法分类</h2>
+    <content type="html"><![CDATA[<p><a href="http://book.douban.com/subject/24703171/">机器学习实战</a>是一本机器学习的入门书。
+作者用简洁易懂的语言介绍了机器学习领域中几个基本算法的原理和其应用。
+另外本书使用Python完成相关算法的实现与应用。</p>
+
+<p>本系列是我边看这本书边记下的笔记，一方面希望可以加深自己的理解，另外，也希望可以帮助读者快速理解机器学习中的相关算法。</p>
+
+<!-- more -->
+
+
+<h2>机器学习算法分类</h2>
 
 <ul>
 <li>监督学习(有训练集)
@@ -135,9 +230,6 @@
 
 
 <p>&lt;&lt;机器学习实战>>一书中讲解以下相关算法:</p>
-
-<!-- more -->
-
 
 <ul>
 <li>knn</li>
