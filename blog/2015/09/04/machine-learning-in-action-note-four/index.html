@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>机器学习实战笔记(四) - nichijouYC's Blog</title>
+  <meta name="author" content="nichijouYC">
+
+  
+  <meta name="description" content="分类算法——朴素贝叶斯(NBC) 简单介绍 通过贝叶斯定理计算未知样本属于每个类别的概率，选取概率最大的分类作为未知样本的分类
+NBC算法可以同时给出分类猜测结果和它的概率估计值 优缺点 优点 在样本数据较少的情况下也可以处理多类别问题 缺点 对输入的数据格式有一定要求 贝叶斯理论 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nichijouyc.github.io/blog/2015/09/04/machine-learning-in-action-note-four/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="nichijouYC's Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.useso.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <!-- 
+ -->
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">nichijouYC's Blog</a></h1>
+  
+    <h2>Hello World!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="nichijouyc.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">机器学习实战笔记(四)</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-09-04T19:56:33+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:56 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>分类算法——朴素贝叶斯(NBC)</h2>
+
+<h3>简单介绍</h3>
+
+<p>通过贝叶斯定理计算未知样本属于每个类别的概率，选取概率最大的分类作为未知样本的分类<br/>
+NBC算法可以同时给出分类猜测结果和它的概率估计值</p>
+
+<!--more-->
+
+
+<h3>优缺点</h3>
+
+<ul>
+<li>优点
+
+<ul>
+<li>在样本数据较少的情况下也可以处理多类别问题</li>
+</ul>
+</li>
+<li>缺点
+
+<ul>
+<li>对输入的数据格式有一定要求</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>贝叶斯理论</h3>
+
+<ul>
+<li>贝叶斯定理由英国数学家贝叶斯 ( Thomas Bayes 1702-1761 ) 发现，用来描述两个条件概率之间的关系</li>
+<li>贝叶斯公式如下：<br/>
+<img src="/pic/bayes.jpg" alt="bayes" /><br/>
+其中，称P(A|B)为后验概率，P(A)为先验概率</li>
+</ul>
+
+
+<h3>算法原理和实现步骤</h3>
+
+<ol>
+<li>假设样本数据有F1，F2，F3，3个特征属性。样本的类别分为A和B两个类别</li>
+<li>对于新样本D来说，若<code>P(A|D(F1),D(F2),D(F3))</code> > <code>P(B|D(F1),D(F2),D(F3))</code>,那么D属于A类别可能性大。反之，D属于B类别可能性大<br/>
+所以只要我们计算出以上两个概率或得知它们的大小即可推断样本D的分类</li>
+<li>按贝叶斯公式可得，以上两个概率的大小可以转换成<code>P(D(F1),D(F2),D(F3)|A)*P(A)</code>和<code>P(D(F1),D(F2),D(F3)|B)*P(B)</code>的大小</li>
+<li><code>P(A)</code>和<code>P(B)</code>可以通过已知样本数据简单得到，下面重点是如何计算<code>P(D(F1),D(F2),D(F3)|A)</code>和<code>P(D(F1),D(F2),D(F3)|B)</code></li>
+<li>按照朴素贝叶斯理论，假定不同分类之间相互独立(这也是该算法名称的由来)<br/>
+那么，<code>P(D(F1),D(F2),D(F3)|A)</code>=<code>P(D(F1)|A)</code>*<code>P(D(F2)|A)</code>*<code>P(D(F3)|A)</code></li>
+<li><code>P(D(F1)|A)</code>，<code>P(D(F2)|A)</code>，<code>P(D(F3)|A)</code>也可以通过已知样本数据简单得到<br/>
+那么我们就可以得到D样本属于A和B的可能性，选择可能性大的那个分类作为D样本的最终分类</li>
+</ol>
+
+
+<p>注意：在计算第5步中的<code>P(D(F1)|A)</code>*<code>P(D(F2)|A)</code>*<code>P(D(F3)|A)</code>时，可能会遇到很多小数相乘溢出的情况。此时，可以转换成对数进行计算,<code>ln(a*b)</code>=<code>ln(a)</code>+<code>ln(b)</code></p>
+
+<h3>实现工具包</h3>
+
+<p>Python机器学习工具包<code>sklearn</code>中的<code>GaussianNB</code>类</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</span><span class='line'><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+</span><span class='line'><span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+</span><span class='line'><span class="n">clf</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+</span><span class='line'><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</span><span class='line'><span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="o">-</span><span class="mf">0.8</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">nichijouYC</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-09-04T19:56:33+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:56 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/09/03/machine-learning-in-action-note-three/" title="Previous Post: 机器学习实战笔记(三)">&laquo; 机器学习实战笔记(三)</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/09/04/machine-learning-in-action-note-four/">机器学习实战笔记(四)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/09/03/machine-learning-in-action-note-three/">机器学习实战笔记(三)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/09/02/machine-learning-in-action-note-two/">机器学习实战笔记(二)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/31/machine-learning-in-action-note-one/">机器学习实战笔记(一)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/07/22/scrapy-quick-start/">Scrapy_Quick_Start</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo">
+<p>
+  Copyright &copy; 2015 - nichijouYC -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
