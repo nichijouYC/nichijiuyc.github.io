@@ -31,8 +31,10 @@ NBC算法可以同时给出分类猜测结果和它的概率估计值 优缺点 
 <link href="//fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="//fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
-  <!-- 
- -->
+  <!--
+  
+
+  -->
 </head>
 
 <body   >
@@ -78,7 +80,7 @@ NBC算法可以同时给出分类猜测结果和它的概率估计值 优缺点 
 
 
 
-<time class='entry-date' datetime='2015-09-04T19:56:33+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:56 pm</span></time>
+<time class='entry-date' datetime='2015-09-04T19:56:22+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:56 pm</span></time>
         
       </p>
     
@@ -92,7 +94,7 @@ NBC算法可以同时给出分类猜测结果和它的概率估计值 优缺点 
 <p>通过贝叶斯定理计算未知样本属于每个类别的概率，选取概率最大的分类作为未知样本的分类<br/>
 NBC算法可以同时给出分类猜测结果和它的概率估计值</p>
 
-<!--more-->
+<!-- more -->
 
 
 <h3>优缺点</h3>
@@ -118,7 +120,7 @@ NBC算法可以同时给出分类猜测结果和它的概率估计值</p>
 <ul>
 <li>贝叶斯定理由英国数学家贝叶斯 ( Thomas Bayes 1702-1761 ) 发现，用来描述两个条件概率之间的关系</li>
 <li>贝叶斯公式如下：<br/>
-<img src="/pic/bayes.jpg" alt="bayes" /><br/>
+<img src="/pic/bayes.png" alt="bayes" /><br/>
 其中，称P(A|B)为后验概率，P(A)为先验概率</li>
 </ul>
 
@@ -129,7 +131,7 @@ NBC算法可以同时给出分类猜测结果和它的概率估计值</p>
 <li>假设样本数据有F1，F2，F3，3个特征属性。样本的类别分为A和B两个类别</li>
 <li>对于新样本D来说，若<code>P(A|D(F1),D(F2),D(F3))</code> > <code>P(B|D(F1),D(F2),D(F3))</code>,那么D属于A类别可能性大。反之，D属于B类别可能性大<br/>
 所以只要我们计算出以上两个概率或得知它们的大小即可推断样本D的分类</li>
-<li>按贝叶斯公式可得，以上两个概率的大小可以转换成<code>P(D(F1),D(F2),D(F3)|A)*P(A)</code>和<code>P(D(F1),D(F2),D(F3)|B)*P(B)</code>的大小</li>
+<li>按贝叶斯公式可得，以上两个概率的大小可以转换成<code>P(D(F1),D(F2),D(F3)|A)</code>*<code>P(A)</code>和<code>P(D(F1),D(F2),D(F3)|B)</code>*<code>P(B)</code>的大小</li>
 <li><code>P(A)</code>和<code>P(B)</code>可以通过已知样本数据简单得到，下面重点是如何计算<code>P(D(F1),D(F2),D(F3)|A)</code>和<code>P(D(F1),D(F2),D(F3)|B)</code></li>
 <li>按照朴素贝叶斯理论，假定不同分类之间相互独立(这也是该算法名称的由来)<br/>
 那么，<code>P(D(F1),D(F2),D(F3)|A)</code>=<code>P(D(F1)|A)</code>*<code>P(D(F2)|A)</code>*<code>P(D(F3)|A)</code></li>
@@ -138,7 +140,7 @@ NBC算法可以同时给出分类猜测结果和它的概率估计值</p>
 </ol>
 
 
-<p>注意：在计算第5步中的<code>P(D(F1)|A)</code>*<code>P(D(F2)|A)</code>*<code>P(D(F3)|A)</code>时，可能会遇到很多小数相乘溢出的情况。此时，可以转换成对数进行计算,<code>ln(a*b)</code>=<code>ln(a)</code>+<code>ln(b)</code></p>
+<p>注意：在计算第5步中的<code>P(D(F1)|A)</code>*<code>P(D(F2)|A)</code>*<code>P(D(F3)|A)</code>时，可能会遇到很多小数相乘溢出的情况。此时，可以转换成对数进行计算,<code>ln(a*b)=ln(a)+ln(b)</code></p>
 
 <h3>实现工具包</h3>
 
@@ -175,7 +177,7 @@ NBC算法可以同时给出分类猜测结果和它的概率估计值</p>
 
 
 
-<time class='entry-date' datetime='2015-09-04T19:56:33+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:56 pm</span></time>
+<time class='entry-date' datetime='2015-09-04T19:56:22+08:00'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>7:56 pm</span></time>
       
 
 
@@ -238,8 +240,7 @@ NBC算法可以同时给出分类猜测结果和它的概率估计值</p>
 
     </div>
   </div>
-  <footer role="contentinfo">
-<p>
+  <footer role="contentinfo"><p>
   Copyright &copy; 2015 - nichijouYC -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>

@@ -10,8 +10,8 @@
 
   
   <meta name="description" content="使用Octopress在GitHub上搭建个人Blog Octopress首页 步骤 安装Git(地址),配置Git与GitHub相连
-安装Ruby，版本1.9.3以上 Rbenv安装Ruby教程（Linux or OS X）
-RubyInstaller安装Ruby（Win） 安装ExecJS( &hellip;">
+安装Ruby，版本1.9.3以上 Rbenv安装Ruby教程(Linux or OS X)
+RubyInstaller安装Ruby(Win) 安装ExecJS( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -32,8 +32,10 @@ RubyInstaller安装Ruby（Win） 安装ExecJS( &hellip;">
 <link href="//fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="//fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
-  <!-- 
- -->
+  <!--
+  
+
+  -->
 </head>
 
 <body   >
@@ -79,7 +81,7 @@ RubyInstaller安装Ruby（Win） 安装ExecJS( &hellip;">
 
 
 
-<time class='entry-date' datetime='2015-07-21T11:32:41+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>11:32 am</span></time>
+<time class='entry-date' datetime='2015-07-21T11:32:16+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>11:32 am</span></time>
         
       </p>
     
@@ -88,9 +90,9 @@ RubyInstaller安装Ruby（Win） 安装ExecJS( &hellip;">
 
 <div class="entry-content"><h2>使用Octopress在GitHub上搭建个人Blog</h2>
 
-<p><a href="http://octopress.org">Octopress首页</a></p>
+<p><a href="http://octopress.org/">Octopress首页</a></p>
 
-<h3>步骤</h3>
+<h2>步骤</h2>
 
 <!-- more -->
 
@@ -100,85 +102,84 @@ RubyInstaller安装Ruby（Win） 安装ExecJS( &hellip;">
 <li>安装Ruby，版本1.9.3以上
 
 <ul>
-<li><a href="http://octopress.org/docs/setup/rbenv/">Rbenv安装Ruby教程（Linux or OS X）</a></li>
-<li><a href="http://rubyinstaller.org">RubyInstaller安装Ruby（Win）</a></li>
+<li><a href="http://git-scm.com/download/">Rbenv安装Ruby教程(Linux or OS X)</a></li>
+<li><a href="http://rubyinstaller.org/">RubyInstaller安装Ruby(Win)</a></li>
 </ul>
 </li>
-<li>安装ExecJS(Linux)(<a href="https://github.com/sstephenson/execjs">地址</a>)，或者安装Devkit(Win)(<a href="http://rubyinstaller.org/downloads/">地址</a>)
-由于本机使用的是Win7，所以以下步骤为安装DevKit后的步骤。Linux或OS X系统的设置步骤见<a href="http://octopress.org/docs/setup/">Octopress官网教程</a></li>
+<li>安装ExecJS(Linux)(<a href="https://github.com/sstephenson/execjs">地址</a>)，或者安装Devkit(Win)(<a href="http://rubyinstaller.org/downloads/">地址</a>) 由于本机使用的是Win7，所以以下步骤为安装DevKit后的步骤。Linux或OS X系统的设置步骤见<a href="http://octopress.org/docs/setup/">Octopress官网教程</a></li>
 <li>解压DevKit后（注意：解压目录中必须没有中文和空格），在命令行输入以下命令进行安装
 
 <ol>
 <li>cd 进入DevKit目录</li>
-<li>ruby dk.rb init</li>
-<li>ruby dk.rb install</li>
+<li><code>ruby dk.rb init</code></li>
+<li><code>ruby dk.rb install</code></li>
 </ol>
 </li>
 <li>用Git安装Octopress，在Ruby目录下安装
 
 <ol>
 <li>cd 进入Ruby目录</li>
-<li>git clone git://github.com/imathis/octopress.git octopress</li>
+<li><code>git clone git://github.com/imathis/octopress.git octopress</code></li>
 </ol>
 </li>
 <li>安装依赖工具bundle。由于国内网络原因，可能直接安装会出现错误，建议替换淘宝源可解决(<a href="http://ruby.taobao.org/">地址</a>)
 
 <ol>
 <li>cd 进入Octopress目录</li>
-<li>gem install bundle</li>
-<li>bundle install（可能提示缺少某些依赖包，按照提示安装缺少的依赖包即可）</li>
+<li><code>gem install bundle</code></li>
+<li><code>bundle install</code>（可能提示缺少某些依赖包，按照提示安装缺少的依赖包即可）</li>
 </ol>
 </li>
 <li>安装Octopress默认主题
 
 <ol>
-<li>rake install</li>
+<li><code>rake install</code></li>
 </ol>
 </li>
 <li>支持中文编码（配置环境变量）
 
 <ol>
-<li>LANG=zh_CN.UTF-8</li>
-<li>LC_ALL=zh_CN.UTF-8</li>
+<li><code>LANG=zh_CN.UTF-8</code></li>
+<li><code>LC_ALL=zh_CN.UTF-8</code></li>
 </ol>
 </li>
 <li>修改Blog名，作者等配置
 
 <ol>
-<li>修改octopress/_config.yml文件的url，title，subtitle，author等值</li>
+<li>修改<code>octopress/_config.yml</code>文件的<code>url</code>，<code>title</code>，<code>subtitle</code>，<code>author</code>等值</li>
 </ol>
 </li>
 <li>部署和预览（发布新博客或者修改配置后）
 
 <ol>
-<li>rake generate</li>
-<li>rake preview</li>
+<li><code>rake generate</code></li>
+<li><code>rake preview</code></li>
 <li>本地访问地址：<a href="http://localhost:4000/">http://localhost:4000/</a></li>
 </ol>
 </li>
 <li>写博客
 
 <ol>
-<li>rake new_post[&ldquo;title&rdquo;]</li>
-<li>修改octopress/source/_posts下的md文件</li>
+<li><code>rake new_post[“title”]</code></li>
+<li>修改<code>octopress/source/_posts</code>下的md文件</li>
 <li>重新发布和预览</li>
 </ol>
 </li>
 <li>部署在Github上
 
 <ol>
-<li>在GitHub上新建一个名为user-id.github.io的版本库（user-id为你的GitHub用户名）。GitHub会自动为其生成网站地址user-id.github.io</li>
-<li>将Octopress目录中的public文件夹上传至GitHub版本库中</li>
-<li>访问user-id.github.io即可看到生成的博客页面</li>
-<li>如果对页面有修改，先在本地进行部署和预览，然后将public文件夹上传即可</li>
+<li>在GitHub上新建一个名为<code>user-id.github.io</code>的版本库（user-id为你的GitHub用户名）。GitHub会自动为其生成网站地址<code>user-id.github.io</code></li>
+<li>将Octopress目录中的<code>public</code>文件夹上传至GitHub版本库中</li>
+<li>访问<code>user-id.github.io</code>即可看到生成的博客页面</li>
+<li>如果对页面有修改，先在本地进行部署和预览，然后将<code>public</code>文件夹上传即可</li>
 </ol>
 </li>
 <li>加快Blog访问速度
 
 <ul>
 <li>由于HTML中的某些资源(字体和脚本)有由google提供的，所以国内访问起来很慢。使用国内的替代品可以解决(<a href="http://libs.useso.com/">360</a>)</li>
-<li>将source/_includes/head.html和source/_include/custom/head.html中的googleapis.com改成useso.com 即可</li>
-<li>若不使用Google Analyze的话，可以将source/_includes/head.html中的包含google_analytics页面注释掉</li>
+<li>将<code>source/_includes/head.html</code>和<code>source/_include/custom/head.html</code>中的<code>googleapis.com</code>改成<code>useso.com</code> 即可</li>
+<li>若不使用Google Analyze的话，可以将<code>source/_includes/head.html</code>中的包含google_analytics页面注释掉</li>
 </ul>
 </li>
 <li>阅读更多(read on)
@@ -197,14 +198,18 @@ RubyInstaller安装Ruby（Win） 安装ExecJS( &hellip;">
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="p">{</span> <span class="o">%</span> <span class="n">codeblock</span> <span class="p">[</span><span class="n">title</span><span class="p">]</span> <span class="p">[</span><span class="n">lang</span><span class="p">:</span><span class="n">language</span><span class="p">]</span> <span class="p">[</span><span class="n">url</span><span class="p">]</span> <span class="p">[</span><span class="n">link</span> <span class="n">text</span><span class="p">]</span> <span class="o">%</span><span class="p">}</span>
-</span><span class='line'><span class="n">python</span> <span class="n">code</span>
-</span><span class='line'><span class="p">{</span> <span class="o">%</span> <span class="n">endcodeblock</span> <span class="o">%</span><span class="p">}</span>
-</span><span class='line'>
-</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>{ % codeblock [title] [lang:language] [url] [link text] %}
+</span><span class='line'>python code
+</span><span class='line'>{ % endcodeblock %}</span></code></pre></td></tr></table></div></figure>
 注意在实际使用中去掉<code>{ %</code>中的空格</li>
 <li>注意多行代码块的这个语法在普通markdown中不适用。在普通markdown语法中，可以通过<code>``` python</code>来插入代码块并且设置语法高亮</li>
+</ul>
+</li>
+<li>修正列表排版
+
+<ul>
+<li>默认情况下，所有文字的排头会对齐，但是博客内容中的列表头会超出文章的主体区域</li>
+<li>修改<code>octopress/sass/custom/_layout.scss</code>文件，将<code>indented-lists: true</code>去掉注释即可</li>
 </ul>
 </li>
 </ul>
@@ -224,7 +229,7 @@ RubyInstaller安装Ruby（Win） 安装ExecJS( &hellip;">
 
 
 
-<time class='entry-date' datetime='2015-07-21T11:32:41+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>11:32 am</span></time>
+<time class='entry-date' datetime='2015-07-21T11:32:16+08:00'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2015</span></span> <span class='time'>11:32 am</span></time>
       
 
 
@@ -239,7 +244,7 @@ RubyInstaller安装Ruby（Win） 安装ExecJS( &hellip;">
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2015/07/20/my-first-octopress-blog/" title="Previous Post: My first octopress blog">&laquo; My first octopress blog</a>
+        <a class="basic-alignment left" href="/blog/2015/07/20/my-first-octopress-blog/" title="Previous Post: My First Octopress Blog">&laquo; My First Octopress Blog</a>
       
       
         <a class="basic-alignment right" href="/blog/2015/07/22/scrapy-quick-start/" title="Next Post: Scrapy_Quick_Start">Scrapy_Quick_Start &raquo;</a>
@@ -289,8 +294,7 @@ RubyInstaller安装Ruby（Win） 安装ExecJS( &hellip;">
 
     </div>
   </div>
-  <footer role="contentinfo">
-<p>
+  <footer role="contentinfo"><p>
   Copyright &copy; 2015 - nichijouYC -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
