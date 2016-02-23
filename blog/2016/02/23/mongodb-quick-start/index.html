@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>MongoDB简单介绍及CRUD操作 - nichijouYC's Blog</title>
+  <meta name="author" content="nichijouYC">
+
+  
+  <meta name="description" content="MongoDB简单介绍及CRUD操作 MongoDB特点 是一种NoSQL数据库，不使用SQL语句操作数据库，而是使用BSON(类似JSON)来操作
+存储的内容为文档型
+查询效率较高
+不支持传统数据库的acid事务操作
+没有值约束（如外键等），通过内嵌文档或者引用实现 关系型数据库ACID原则 A &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://nichijouyc.github.io/blog/2016/02/23/mongodb-quick-start/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="nichijouYC's Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.useso.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.useso.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.useso.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <!--
+  
+
+  -->
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">nichijouYC's Blog</a></h1>
+  
+    <h2>Hello World!</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="sitesearch" value="nichijouyc.github.io">
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">MongoDB简单介绍及CRUD操作</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2016-02-23T14:08:36+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2016</span></span> <span class='time'>2:08 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>MongoDB简单介绍及CRUD操作</h2>
+
+<!-- more -->
+
+
+<h3>MongoDB特点</h3>
+
+<ul>
+<li>是一种NoSQL数据库，不使用SQL语句操作数据库，而是使用BSON(类似JSON)来操作</li>
+<li>存储的内容为文档型</li>
+<li>查询效率较高</li>
+<li>不支持传统数据库的acid事务操作</li>
+<li>没有值约束（如外键等），通过内嵌文档或者引用实现</li>
+</ul>
+
+
+<h3>关系型数据库ACID原则</h3>
+
+<ul>
+<li>A(原子性)：事务操作要么都做，要么都不做</li>
+<li>C(一致性)：事务运行前后数据库属于一致状态</li>
+<li>I(独立性)：并发事务互相之间不影响</li>
+<li>D(持久性)：事务提交后修改会永远保存在数据库中</li>
+</ul>
+
+
+<h3>传统SQL和MongoDB一些概念区别</h3>
+
+<ul>
+<li>SQL<code>数据库</code>对应MongoDB<code>数据库</code></li>
+<li>SQL<code>表</code>对应MongoDB<code>集合（Collection）</code></li>
+<li>SQL<code>行</code>对应MongoDB<code>文档或BSON</code></li>
+<li>SQL<code>列</code>对应MongoDB<code>字段</code></li>
+<li>SQL<code>主键（任意列可做主键）</code>对应MongoDB<code>自动设置的主键（_id）</code></li>
+</ul>
+
+
+<h3>MongoDB下载安装启动</h3>
+
+<ul>
+<li>MongoDB下载见官网<a href="https://www.mongodb.org/downloads#production">地址</a></li>
+<li>启动
+
+<ul>
+<li>win下
+
+<ol>
+<li>在bin目录下创建新文件夹<code>/data/db</code></li>
+<li>先运行<code>mongod --dbpath "./data"</code>启动服务端</li>
+<li>运行<code>mongo</code>启动shell</li>
+</ol>
+</li>
+<li>ubuntu下
+
+<ol>
+<li>运行<code>sudo service mongod start</code>启动服务</li>
+<li>运行<code>mongo</code>启动shell</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>MongoDB简单CRUD操作</h3>
+
+<ul>
+<li>创建数据库
+
+<ul>
+<li><code>use user</code></li>
+<li>创建一个名为user的数据库。若数据库<code>user</code>已存在，则切换到该数据库</li>
+</ul>
+</li>
+<li>添加insert
+
+<ul>
+<li><code>db.user.insert({name:"xiaowang",age:"23"})</code></li>
+<li>向集合<code>user</code>添加文档。若集合<code>user</code>不存在，则自动创建</li>
+</ul>
+</li>
+<li>删除remove
+
+<ul>
+<li><code>db.user.remove({name:"xiaowang"})</code></li>
+<li>删除name值为xiaowang的文档</li>
+</ul>
+</li>
+<li>修改update
+
+<ul>
+<li><code>db.user.update({name:"xiaowang"},{$set:{age:"22"}},{multi:true})</code></li>
+<li>将name值为xiaowang的文档的age值都改为22。若不加multi参数，则修改第一条</li>
+</ul>
+</li>
+<li>查询find
+
+<ul>
+<li><code>db.user.find({name:"xiaowang",age:{$gt:"21"}},{name:"1"})</code></li>
+<li>查询name为xiaowang并且age大于21的文档，并只返回name值</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>Python操作Mongodb</h3>
+
+<ul>
+<li>使用库<code>pymongo</code>（以字典结构操作数据库)</li>
+<li><a href="http://api.mongodb.org/python/current/tutorial.html">Pymongo Tutorial</a></li>
+</ul>
+
+
+<h3>可视化管理工具</h3>
+
+<ul>
+<li>NoSQL Manager for MongoDB</li>
+</ul>
+
+
+<h3>相关参考文档</h3>
+
+<ul>
+<li><a href="https://docs.mongodb.org/manual/">官网文档</a></li>
+<li><a href="http://docs.mongoing.com/manual-zh/reference/sql-comparison.html">SQL到Mongodb映射表</a></li>
+<li><a href="http://www.runoob.com/mongodb">中文教程</a></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">nichijouYC</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2016-02-23T14:08:36+08:00'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>23</span><span class='date-suffix'>rd</span>, <span class='date-year'>2016</span></span> <span class='time'>2:08 pm</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/09/04/machine-learning-in-action-note-four/" title="Previous Post: 机器学习实战笔记(四)">&laquo; 机器学习实战笔记(四)</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2016/02/23/mongodb-quick-start/">MongoDB简单介绍及CRUD操作</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/09/04/machine-learning-in-action-note-four/">机器学习实战笔记(四)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/09/03/machine-learning-in-action-note-three/">机器学习实战笔记(三)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/09/02/machine-learning-in-action-note-two/">机器学习实战笔记(二)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/31/machine-learning-in-action-note-one/">机器学习实战笔记(一)</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2016 - nichijouYC -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
