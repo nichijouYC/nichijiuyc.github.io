@@ -1,0 +1,661 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="纵使疾风起，人生不言弃" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Docker技术入门与实战 笔记Docker 简介 Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker技术入门与实战 笔记">
+<meta property="og:url" content="http://yoursite.com/2016/08/03/docker-in-action-note/index.html">
+<meta property="og:site_name" content="nichijouYC&#39;s Blog">
+<meta property="og:description" content="Docker技术入门与实战 笔记Docker 简介 Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-06T07:30:37.407Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker技术入门与实战 笔记">
+<meta name="twitter:description" content="Docker技术入门与实战 笔记Docker 简介 Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Docker技术入门与实战 笔记 | nichijouYC's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nichijouYC's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Docker技术入门与实战 笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-03T21:03:36+08:00" content="2016-08-03">
+              2016-08-03
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Docker技术入门与实战-笔记"><a href="#Docker技术入门与实战-笔记" class="headerlink" title="Docker技术入门与实战 笔记"></a>Docker技术入门与实战 笔记</h3><h4 id="Docker-简介"><a href="#Docker-简介" class="headerlink" title="Docker 简介"></a>Docker 简介</h4><ul>
+<li>Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上</li>
+</ul>
+<a id="more"></a>
+<h4 id="Docker-核心概念"><a href="#Docker-核心概念" class="headerlink" title="Docker 核心概念"></a>Docker 核心概念</h4><ol>
+<li>镜像（Image）<ul>
+<li>Docker镜像类似于虚拟机镜像，相当于面向Docker的只读模板</li>
+</ul>
+</li>
+<li>容器（Container）<ul>
+<li>Docker容器是根据镜像创建的应用运行实例，可以启动、开始、停止、删除。对容器的修改写入容器的文件系统中，并不会写入Docker镜像中</li>
+</ul>
+</li>
+<li>仓库（Repository）<ul>
+<li>Docker仓库是存放镜像文件的地方。注册服务器时存放仓库的地方。某个仓库集中存放某一类镜像，包括多个镜像文件，通过tag区分，比如不同版本的镜像</li>
+</ul>
+</li>
+</ol>
+<h4 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h4><ul>
+<li>参见官网<a href="https://docs.docker.com/engine/installation/linux/ubuntulinux/" target="_blank" rel="external">安装教程</a></li>
+<li>安装完成后运行 <code>sudo service docker start</code> 和 <code>sudo docker run hello-world</code>，验证是否安装成功 </li>
+</ul>
+<h4 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h4><ol>
+<li>获取镜像 <code>sudo docker pull ubuntu</code> 不指定tag默认下载latest版本的，或者指定tag下载指定版本 <code>docker pull ubuntu:14:04</code></li>
+<li>获取镜像详细信息 <code>sudo docker inspect ubuntu</code></li>
+<li>查看镜像 <code>sudo docker images</code></li>
+<li>查看所有容器 <code>sudo docker ps -a</code></li>
+<li>创建自己的新的镜像<ol>
+<li>基于已有镜像的容器创建<ol>
+<li>先运行一个镜像 <code>sudo docker run -it ubuntu /bin/bash</code></li>
+<li>做一些修改 比如增加一个文件 <code>touch a</code></li>
+<li>退出容器 <code>exit</code> 并记住容器id</li>
+<li>根据这个容器创建一个新的镜像 <code>sudo docker commit -m &quot;message&quot; -a &quot;author&quot; 4acc test</code></li>
+<li>查看镜像 <code>sudo docker images</code> 会有一个新的镜像（test） </li>
+</ol>
+</li>
+<li>基于本地模板导入</li>
+<li>基于DockerFile创建</li>
+</ol>
+</li>
+<li>保存镜像（将镜像保存到本地文件） <code>sudo docker save -o ubuntu.tar ubuntu:14.04</code></li>
+<li>导入镜像(从本地文件导入镜像)  <code>sudo docker load --input ubuntu.tar</code></li>
+<li>上传镜像 <code>sudo docker push test:latest</code></li>
+<li>给镜像打标签 <code>sudo docker tag test:lastest ubuntu:14.04</code> </li>
+<li>删除镜像 <code>sudo docker rmi ubuntu</code></li>
+</ol>
+<h4 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h4><ol>
+<li>新建容器 <code>sudo docker create ubuntu:latest</code> 新建的容器是停止状态的</li>
+<li>启动容器 <code>sudo docker start 4acc</code></li>
+<li>新建并且启动容器 <code>sudo docker run -it ubuntu /bin/bash</code><br> -t 指分配一个伪终端<br> -i 指保持打开容器的标准输入 exit后 容器处于停止状态</li>
+<li>后台运行容器 <code>sudo docker run -d -P ubuntu /bin/echo &quot;hello world&quot;</code><br> -d 后台运行<br> -P 转发容器所有端口到主机端口，可以通过主机ip：端口访问<br> 如果不加-P 宿主机外无法访问，宿主机可以通过容器ip:端口号访问 另外可以指定ip映射  -p 5000:5000 </li>
+<li>获取后台容器输出<code>docker logs 4acc</code></li>
+<li>停止容器 <code>sudo docker stop 4acc</code> 可以通过start命令来重新启动</li>
+<li>进入容器 <code>sudo docker exec -it 4acc /bin/bash</code> 容器必须是运行状态</li>
+<li>删除容器 <code>sudo docker rm 4acc</code></li>
+<li>导出容器 <code>sudo docker export 4acc &gt; ubuntu.tar</code></li>
+<li>导入容器（成为镜像） <code>cat ubuntu.tar | sudo docker import - ubuntu:latest</code> <ul>
+<li>与导入镜像的区别： 容器快照会丢弃所有的历史记录和元数据信息（比如标签） 镜像文件会保存完整记录，所以体积比容器文件大很多 </li>
+</ul>
+</li>
+<li>获取容器详细信息 <code>sudo docker inspect 4acc</code> 包括ip地址等</li>
+</ol>
+<h4 id="仓库"><a href="#仓库" class="headerlink" title="仓库"></a>仓库</h4><ol>
+<li>搜索镜像 <code>sudo docker search hadoop</code></li>
+<li>下载指定注册服务器的镜像 <code>sudo docker pull dl.dockerpool.com:5000/tomcat</code></li>
+<li>创建和使用私有仓库<ol>
+<li>创建私有仓库 <code>sudo docker run -d -p 5000:5000 -v /opt/data/registry:/tmp/registry registry</code><br>在本地启动一个registry容器 监听5000端口 镜像文件默认存在容器的/tmp/registry中 -v 可以将镜像文件存放在本地目录上</li>
+<li>上传镜像(私有仓库地址为10.0.2.2:5000) <code>sudo docker push 10.0.2.2:5000/test</code></li>
+<li>下载镜像 <code>sudo docker pull 10.0.2.2:5000/test</code></li>
+</ol>
+</li>
+</ol>
+<h4 id="使用DaoCloud加速器"><a href="#使用DaoCloud加速器" class="headerlink" title="使用DaoCloud加速器"></a>使用DaoCloud加速器</h4><ul>
+<li>在国内获取镜像时（docker pull），由于网络问题，下载镜像文件非常慢。我们可以使用DaoCloud的加速器工具加快下载镜像的速度。DaoCloud通过智能路由和缓存机制，极大提升了国内网络访问 Docker Hub的速度</li>
+<li>使用步骤（<a href="https://www.daocloud.io/mirror.html#accelerator-doc" target="_blank" rel="external">官网文档</a>）<ol>
+<li>运行 <code>curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://404114fe.m.daocloud.io</code></li>
+<li>重启docker服务 <code>sudo service docker restart</code> 即可</li>
+</ol>
+</li>
+</ul>
+<h4 id="数据管理"><a href="#数据管理" class="headerlink" title="数据管理"></a>数据管理</h4><ul>
+<li>数据卷<ol>
+<li>数据卷是一个可以供容器使用的特殊文件目录，可以在不同容器之间共用共享</li>
+<li>对数据卷的修改马上生效</li>
+<li>对数据卷更新不会影响镜像</li>
+<li>卷会一直存在，直到没有容器使用</li>
+</ol>
+</li>
+</ul>
+<ol>
+<li>在容器中创建数据卷 <code>sudo docker run -v /webapp ubuntu</code></li>
+<li>挂载本地主机目录或者文件作为数据卷 <code>sudo docker run -d -P tomcat -v /src/webapp:/opt/webapp</code></li>
+</ol>
+<ul>
+<li>数据卷容器<ol>
+<li>如果需要在容器间共享一些持续更新数据，可以使用数据卷容器</li>
+<li>数据卷容器是一个普通的容器，其他多个容器可以挂载这个数据卷容器获取数据，数据共享</li>
+<li>数据卷容器也可以挂载本地目录，实现主机/容器之间的数据共享</li>
+</ol>
+</li>
+</ul>
+<ol>
+<li>创建数据卷容器 <code>sudo docker run -it -v /dbdata  --name dbdata ubuntu</code> –name 指定容器名字</li>
+<li>在别的容器中挂载数据卷容器  <code>sudo docker run -it --volumes-from dbdata --name db1 ubuntu</code>  (数据卷容器不需要在运行状态)</li>
+</ol>
+<h4 id="容器互联"><a href="#容器互联" class="headerlink" title="容器互联"></a>容器互联</h4><ul>
+<li><p>有时我们会遇到容器间需要通信的时候，比如一个容器为tomcat，另一个容器为mysql，tomcat容器需要链接mysql容器，有两种方式实现容器间通信</p>
+</li>
+<li><p>方式一：每个容器都将端口映射到主机，通过主机进行容器互联</p>
+</li>
+<li>方式二：使用link命令</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/22/ubuntu-install-hbase/" rel="next" title="ubuntu安装hbase">
+                <i class="fa fa-chevron-left"></i> ubuntu安装hbase
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/16/recover-hadoop-data/" rel="prev" title="hadoop节点数据丢失恢复">
+                hadoop节点数据丢失恢复 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="nichijouYC" />
+          <p class="site-author-name" itemprop="name">nichijouYC</p>
+          <p class="site-description motion-element" itemprop="description">纵使疾风起，人生不言弃</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/nichijouyc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker技术入门与实战-笔记"><span class="nav-number">1.</span> <span class="nav-text">Docker技术入门与实战 笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker-简介"><span class="nav-number">1.1.</span> <span class="nav-text">Docker 简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker-核心概念"><span class="nav-number">1.2.</span> <span class="nav-text">Docker 核心概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker安装"><span class="nav-number">1.3.</span> <span class="nav-text">Docker安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像"><span class="nav-number">1.4.</span> <span class="nav-text">镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器"><span class="nav-number">1.5.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#仓库"><span class="nav-number">1.6.</span> <span class="nav-text">仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用DaoCloud加速器"><span class="nav-number">1.7.</span> <span class="nav-text">使用DaoCloud加速器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据管理"><span class="nav-number">1.8.</span> <span class="nav-text">数据管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器互联"><span class="nav-number">1.9.</span> <span class="nav-text">容器互联</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nichijouYC</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

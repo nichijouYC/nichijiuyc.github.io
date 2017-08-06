@@ -1,0 +1,629 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="纵使疾风起，人生不言弃" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="使用Octopress在GitHub上搭建个人BlogOctopress首页 步骤">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitHub_Octopress_Blog_Tutorial">
+<meta property="og:url" content="http://yoursite.com/2015/07/21/github-octopress-blog-tutorial/index.html">
+<meta property="og:site_name" content="nichijouYC&#39;s Blog">
+<meta property="og:description" content="使用Octopress在GitHub上搭建个人BlogOctopress首页 步骤">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-06T06:59:55.863Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GitHub_Octopress_Blog_Tutorial">
+<meta name="twitter:description" content="使用Octopress在GitHub上搭建个人BlogOctopress首页 步骤">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> GitHub_Octopress_Blog_Tutorial | nichijouYC's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nichijouYC's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                GitHub_Octopress_Blog_Tutorial
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-21T11:32:16+08:00" content="2015-07-21">
+              2015-07-21
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="使用Octopress在GitHub上搭建个人Blog"><a href="#使用Octopress在GitHub上搭建个人Blog" class="headerlink" title="使用Octopress在GitHub上搭建个人Blog"></a>使用Octopress在GitHub上搭建个人Blog</h2><p><a href="http://octopress.org/" target="_blank" rel="external">Octopress首页</a></p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><a id="more"></a>
+<ul>
+<li>安装Git(<a href="http://git-scm.com/download/" target="_blank" rel="external">地址</a>),配置Git与GitHub相连</li>
+<li>安装Ruby，版本1.9.3以上<ul>
+<li><a href="http://git-scm.com/download/" target="_blank" rel="external">Rbenv安装Ruby教程(Linux or OS X)</a></li>
+<li><a href="http://rubyinstaller.org/" target="_blank" rel="external">RubyInstaller安装Ruby(Win)</a></li>
+</ul>
+</li>
+<li>安装ExecJS(Linux)(<a href="https://github.com/sstephenson/execjs" target="_blank" rel="external">地址</a>)，或者安装Devkit(Win)(<a href="http://rubyinstaller.org/downloads/" target="_blank" rel="external">地址</a>) 由于本机使用的是Win7，所以以下步骤为安装DevKit后的步骤。Linux或OS X系统的设置步骤见<a href="http://octopress.org/docs/setup/" target="_blank" rel="external">Octopress官网教程</a></li>
+<li>解压DevKit后（注意：解压目录中必须没有中文和空格），在命令行输入以下命令进行安装<ol>
+<li>cd 进入DevKit目录</li>
+<li><code>ruby dk.rb init</code></li>
+<li><code>ruby dk.rb install</code></li>
+</ol>
+</li>
+<li>用Git安装Octopress，在Ruby目录下安装<ol>
+<li>cd 进入Ruby目录</li>
+<li><code>git clone git://github.com/imathis/octopress.git octopress</code></li>
+</ol>
+</li>
+<li>安装依赖工具bundle。由于国内网络原因，可能直接安装会出现错误，建议替换淘宝源可解决(<a href="http://ruby.taobao.org/" target="_blank" rel="external">地址</a>)<ol>
+<li>cd 进入Octopress目录</li>
+<li><code>gem install bundle</code></li>
+<li><code>bundle install</code>（可能提示缺少某些依赖包，按照提示安装缺少的依赖包即可）</li>
+</ol>
+</li>
+<li>安装Octopress默认主题<ol>
+<li><code>rake install</code></li>
+</ol>
+</li>
+<li>支持中文编码（配置环境变量）<ol>
+<li><code>LANG=zh_CN.UTF-8</code></li>
+<li><code>LC_ALL=zh_CN.UTF-8</code></li>
+</ol>
+</li>
+<li>修改Blog名，作者等配置<ol>
+<li>修改<code>octopress/_config.yml</code>文件的<code>url</code>，<code>title</code>，<code>subtitle</code>，<code>author</code>等值</li>
+</ol>
+</li>
+<li>部署和预览（发布新博客或者修改配置后）<ol>
+<li><code>rake generate</code></li>
+<li><code>rake preview</code></li>
+<li>本地访问地址：<a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a></li>
+</ol>
+</li>
+<li>写博客<ol>
+<li><code>rake new_post[“title”]</code></li>
+<li>修改<code>octopress/source/_posts</code>下的md文件</li>
+<li>重新发布和预览</li>
+</ol>
+</li>
+<li>部署在Github上<ol>
+<li>在GitHub上新建一个名为<code>user-id.github.io</code>的版本库（user-id为你的GitHub用户名）。GitHub会自动为其生成网站地址<code>user-id.github.io</code></li>
+<li>将Octopress目录中的<code>public</code>文件夹上传至GitHub版本库中</li>
+<li>访问<code>user-id.github.io</code>即可看到生成的博客页面</li>
+<li>如果对页面有修改，先在本地进行部署和预览，然后将<code>public</code>文件夹上传即可</li>
+</ol>
+</li>
+<li>加快Blog访问速度<ul>
+<li>由于HTML中的某些资源(字体和脚本)有由google提供的，所以国内访问起来很慢。使用国内的替代品可以解决(<a href="http://libs.useso.com/" target="_blank" rel="external">360</a>)</li>
+<li>将<code>source/_includes/head.html</code>和<code>source/_include/custom/head.html</code>中的<code>googleapis.com</code>改成<code>useso.com</code> 即可</li>
+<li>若不使用Google Analyze的话，可以将<code>source/_includes/head.html</code>中的包含google_analytics页面注释掉</li>
+</ul>
+</li>
+<li>阅读更多(read on)<ul>
+<li>正常情况下，Octopress首页会显示每篇blog的全部内容，这样会使得页面很长，不易浏览和阅读早期的blog</li>
+<li>我们可以在每篇blog中添加<code>read on</code>按钮，使得在首页只显示本篇blog的部分内容，点击<code>read on</code>按钮可以进入本blog页面显示全部内容</li>
+<li>完成这个效果，只要编辑blog的md文件，在你想要部分显示内容的后面插入<code>&lt;!-- more --&gt;</code>即可</li>
+</ul>
+</li>
+<li>插入代码，并设置语法高亮<ul>
+<li>行内代码如<code>cd ..</code>,使用两个反引号``包含代码片段</li>
+<li>多行代码块，可以使用下图方式插入代码并且实现语法高亮<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123; % codeblock [title] [lang:language] [url] [link text] %&#125;</div><div class="line">python code</div><div class="line">&#123; % endcodeblock %&#125;</div><div class="line">    </div></pre></td></tr></table></figure>
+注意在实际使用中去掉<code>{ %</code>中的空格</li>
+<li>注意多行代码块的这个语法在普通markdown中不适用。在普通markdown语法中，可以通过<code>``` python</code>来插入代码块并且设置语法高亮</li>
+</ul>
+</li>
+<li>修正列表排版<ul>
+<li>默认情况下，所有文字的排头会对齐，但是博客内容中的列表头会超出文章的主体区域</li>
+<li>修改<code>octopress/sass/custom/_layout.scss</code>文件，将<code>indented-lists: true</code>去掉注释即可</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/22/scrapy-quick-start/" rel="prev" title="Scrapy_Quick_Start">
+                Scrapy_Quick_Start <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="nichijouYC" />
+          <p class="site-author-name" itemprop="name">nichijouYC</p>
+          <p class="site-description motion-element" itemprop="description">纵使疾风起，人生不言弃</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/nichijouyc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Octopress在GitHub上搭建个人Blog"><span class="nav-number">1.</span> <span class="nav-text">使用Octopress在GitHub上搭建个人Blog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nichijouYC</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

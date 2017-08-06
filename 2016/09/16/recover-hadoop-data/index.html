@@ -1,0 +1,622 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="纵使疾风起，人生不言弃" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="hadoop节点数据丢失恢复现有环境 正常运行的hadoop集群三台 1. ubuntu1:namenode,datanode  2. ubuntu2:datanode  3. ubuntu3:datanode  设置dfs.replication=2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hadoop节点数据丢失恢复">
+<meta property="og:url" content="http://yoursite.com/2016/09/16/recover-hadoop-data/index.html">
+<meta property="og:site_name" content="nichijouYC&#39;s Blog">
+<meta property="og:description" content="hadoop节点数据丢失恢复现有环境 正常运行的hadoop集群三台 1. ubuntu1:namenode,datanode  2. ubuntu2:datanode  3. ubuntu3:datanode  设置dfs.replication=2">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-06T07:30:37.407Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hadoop节点数据丢失恢复">
+<meta name="twitter:description" content="hadoop节点数据丢失恢复现有环境 正常运行的hadoop集群三台 1. ubuntu1:namenode,datanode  2. ubuntu2:datanode  3. ubuntu3:datanode  设置dfs.replication=2">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> hadoop节点数据丢失恢复 | nichijouYC's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nichijouYC's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                hadoop节点数据丢失恢复
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-16T18:51:36+08:00" content="2016-09-16">
+              2016-09-16
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="hadoop节点数据丢失恢复"><a href="#hadoop节点数据丢失恢复" class="headerlink" title="hadoop节点数据丢失恢复"></a>hadoop节点数据丢失恢复</h3><h4 id="现有环境"><a href="#现有环境" class="headerlink" title="现有环境"></a>现有环境</h4><ul>
+<li><p>正常运行的hadoop集群三台</p>
+<pre><code>1. ubuntu1:namenode,datanode
+
+2. ubuntu2:datanode
+
+3. ubuntu3:datanode
+</code></pre></li>
+<li><p>设置dfs.replication=2</p>
+</li>
+</ul>
+<a id="more"></a>
+<h4 id="datanode数据丢失恢复"><a href="#datanode数据丢失恢复" class="headerlink" title="datanode数据丢失恢复"></a>datanode数据丢失恢复</h4><ol>
+<li><p>上传文件(<code>./hadoop fs -put ../LICENSE.txt /</code>),查看文件存储的节点</p>
+<ul>
+<li><p>LICENSE.txt 存在 ubuntu1,ubuntu3</p>
+</li>
+<li><p>README.txt 存在 ubuntu1,ubuntu2</p>
+</li>
+</ul>
+</li>
+<li><p>查看文件(<code>./hadoop fs -cat hdfs://ubuntu1:9000/README.txt</code>),可以正常查询</p>
+</li>
+<li><p>将其中ubuntu2节点的datanode进程kill掉,模拟datanode节点挂掉,数据丢失</p>
+<ul>
+<li>默认超时时间为10.5分钟,超过超时时间后可以在50070页面上看到datanode挂掉</li>
+</ul>
+</li>
+<li><p>查看文件(<code>./hadoop fs -cat hdfs://ubuntu1:9000/README.txt</code>),可以正常查询</p>
+</li>
+<li><p>查看此时文件存储的节点</p>
+<ul>
+<li><p>LICENSE.txt 存在 ubuntu1,ubuntu3</p>
+</li>
+<li><p>README.txt 存在 ubuntu1,ubuntu3</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="原因探究"><a href="#原因探究" class="headerlink" title="原因探究:"></a>原因探究:</h4><ol>
+<li><p>datanode每隔固定时间会向namenode发送心跳包,报告datanode状态和数据块</p>
+</li>
+<li><p>当datanode挂掉后,namenode根据datanode最后一次发送心跳的时间,超过阈值后,就认为这个datanode挂掉了</p>
+</li>
+<li><p>namenode确认datanode挂掉后,会确定这个节点上的block,查看他的副本数,如果低于复制因子,会从副本datanode复制这个数据块到其他datanode</p>
+</li>
+<li><p>block复制完成后,集群数据副本数量正常.若挂掉的datanode恢复后,数据副本数量超过复制因子,集群会随机删除多余副本</p>
+</li>
+</ol>
+<h4 id="namenode数据丢失恢复"><a href="#namenode数据丢失恢复" class="headerlink" title="namenode数据丢失恢复"></a>namenode数据丢失恢复</h4><ol>
+<li><p>将ubuntu1的namenode进程kill掉,并且将hadoop数据目录下的/dfs/name里的文件删除,模拟namenode数据丢失</p>
+</li>
+<li><p>查看文件(<code>./hadoop fs -cat hdfs://ubuntu1:9000/README.txt</code>),提示错误,拒绝连接</p>
+</li>
+<li><p>重启namenode,发现namenode无法启动</p>
+</li>
+<li><p>将secondarynamenode节点中的/dfs/namesecondary内容(checkpoint)复制到namenode节点中的/dfs/name文件夹下</p>
+</li>
+<li><p>执行<code>bin/hadoop namenode -importCheckpoint</code>,使namenode读取checkpoint文件</p>
+</li>
+<li><p>再重新启动namenode,启动成功</p>
+</li>
+<li><p>查看文件(<code>./hadoop fs -cat hdfs://ubuntu1:9000/README.txt</code>),可以正常查询</p>
+</li>
+</ol>
+<h4 id="原因探究-1"><a href="#原因探究-1" class="headerlink" title="原因探究:"></a>原因探究:</h4><ol>
+<li><p>namenode会把文件系统的变化保存到日志文件edits中,namenode启动时,会从fsimage中读取HDFS的状态,并且把edits文件中的操作应用到fsimage,合并后创建一个新的edits文件来记录文件系统的变化</p>
+</li>
+<li><p>namenode只有在启动时才会合并edits和fsimage,secondarynamenode会定期合并fsimage和edits日志(默认配置1个小时),并且保存最后一次checkpoint结果</p>
+</li>
+<li><p>secondarynamenode保存的结果和namenode保存结果格式一样,所以当namenode数据丢失时,可以拷贝secondarynamenode的数据,恢复namenode,但是是一小时之前的结果</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/03/docker-in-action-note/" rel="next" title="Docker技术入门与实战 笔记">
+                <i class="fa fa-chevron-left"></i> Docker技术入门与实战 笔记
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/04/ArrayList-in-jdk8/" rel="prev" title="ArrayList( jdk8)解析">
+                ArrayList( jdk8)解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="nichijouYC" />
+          <p class="site-author-name" itemprop="name">nichijouYC</p>
+          <p class="site-description motion-element" itemprop="description">纵使疾风起，人生不言弃</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/nichijouyc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#hadoop节点数据丢失恢复"><span class="nav-number">1.</span> <span class="nav-text">hadoop节点数据丢失恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#现有环境"><span class="nav-number">1.1.</span> <span class="nav-text">现有环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#datanode数据丢失恢复"><span class="nav-number">1.2.</span> <span class="nav-text">datanode数据丢失恢复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原因探究"><span class="nav-number">1.3.</span> <span class="nav-text">原因探究:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#namenode数据丢失恢复"><span class="nav-number">1.4.</span> <span class="nav-text">namenode数据丢失恢复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原因探究-1"><span class="nav-number">1.5.</span> <span class="nav-text">原因探究:</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nichijouYC</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

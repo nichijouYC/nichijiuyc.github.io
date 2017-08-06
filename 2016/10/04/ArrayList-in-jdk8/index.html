@@ -1,0 +1,568 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="纵使疾风起，人生不言弃" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="ArrayList( jdk8)解析 ArrayList是一个基于动态数组实现的列表,容量可以自动增长  位于java.util包下,继承AbstractList类,实现List接口,RandomAccess接口(通过下标快速访问),Cloneable接口(允许被克隆),Serializable(支持序列化传输)  ArrayList线程不安全,在多线程环境下可以使用Collections.syn">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ArrayList( jdk8)解析">
+<meta property="og:url" content="http://yoursite.com/2016/10/04/ArrayList-in-jdk8/index.html">
+<meta property="og:site_name" content="nichijouYC&#39;s Blog">
+<meta property="og:description" content="ArrayList( jdk8)解析 ArrayList是一个基于动态数组实现的列表,容量可以自动增长  位于java.util包下,继承AbstractList类,实现List接口,RandomAccess接口(通过下标快速访问),Cloneable接口(允许被克隆),Serializable(支持序列化传输)  ArrayList线程不安全,在多线程环境下可以使用Collections.syn">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-06T07:30:37.407Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ArrayList( jdk8)解析">
+<meta name="twitter:description" content="ArrayList( jdk8)解析 ArrayList是一个基于动态数组实现的列表,容量可以自动增长  位于java.util包下,继承AbstractList类,实现List接口,RandomAccess接口(通过下标快速访问),Cloneable接口(允许被克隆),Serializable(支持序列化传输)  ArrayList线程不安全,在多线程环境下可以使用Collections.syn">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> ArrayList( jdk8)解析 | nichijouYC's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nichijouYC's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ArrayList( jdk8)解析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-04T10:23:49+08:00" content="2016-10-04">
+              2016-10-04
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="ArrayList-jdk8-解析"><a href="#ArrayList-jdk8-解析" class="headerlink" title="ArrayList( jdk8)解析"></a>ArrayList( jdk8)解析</h3><ul>
+<li><p>ArrayList是一个基于动态数组实现的列表,容量可以自动增长</p>
+</li>
+<li><p>位于java.util包下,继承AbstractList类,实现List接口,RandomAccess接口(通过下标快速访问),Cloneable接口(允许被克隆),Serializable(支持序列化传输)</p>
+</li>
+<li><p>ArrayList线程不安全,在多线程环境下可以使用Collections.synchronizedList和concurrent.CopyOnWriteArrayList</p>
+</li>
+</ul>
+<a id="more"></a>
+<h5 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"></div><div class="line"> *  默认创建的数组长度为10</div><div class="line"></div><div class="line"> */</div><div class="line"></div><div class="line">private static final int DEFAULT_CAPACITY = 10;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"></div><div class="line"> *  初始化长度为0时返回的数组</div><div class="line"></div><div class="line"> */</div><div class="line"></div><div class="line">private static final Object[] EMPTY_ELEMENTDATA = &#123;&#125;;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"></div><div class="line"> *  初始化时不传长度参数时返回的数组</div><div class="line"></div><div class="line"> */</div><div class="line"></div><div class="line">private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = &#123;&#125;;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"></div><div class="line"> *   实际存放列表元素的数组</div><div class="line"></div><div class="line"> */</div><div class="line"></div><div class="line">transient Object[] elementData; </div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"></div><div class="line"> *  当前数组存放元素个数</div><div class="line"></div><div class="line"> *</div><div class="line"></div><div class="line"> * @serial</div><div class="line"></div><div class="line"> */</div><div class="line"></div><div class="line">private int size;</div></pre></td></tr></table></figure>
+<h5 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"></div><div class="line"> *  带长度的构造方法</div><div class="line"></div><div class="line"> *  当长度小于0时报错</div><div class="line"></div><div class="line"> *  长度等于0时，elementData是一个空数组</div><div class="line"></div><div class="line"> *  长度大于0时，elementData初始化一个指定长度的数组</div><div class="line"></div><div class="line"> */</div><div class="line"></div><div class="line">public ArrayList(int initialCapacity) &#123;</div><div class="line"></div><div class="line">    if (initialCapacity &gt; 0) &#123;</div><div class="line"></div><div class="line">        this.elementData = new Object[initialCapacity];</div><div class="line"></div><div class="line">    &#125; else if (initialCapacity == 0) &#123;</div><div class="line"></div><div class="line">        this.elementData = EMPTY_ELEMENTDATA;</div><div class="line"></div><div class="line">    &#125; else &#123;</div><div class="line"></div><div class="line">        throw new IllegalArgumentException(&quot;Illegal Capacity: &quot;+</div><div class="line"></div><div class="line">                                           initialCapacity);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"></div><div class="line"> * 不带长度的构造方法</div><div class="line"></div><div class="line"> * elementData是一个空数组</div><div class="line"></div><div class="line"> */</div><div class="line"></div><div class="line">public ArrayList() &#123;</div><div class="line"></div><div class="line">    this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"></div><div class="line"> *  将一个Collection转换成一个ArrayList,调用toArray方法</div><div class="line"></div><div class="line"> */</div><div class="line"></div><div class="line">public ArrayList(Collection&lt;? extends E&gt; c) &#123;</div><div class="line"></div><div class="line">    elementData = c.toArray();</div><div class="line"></div><div class="line">    if ((size = elementData.length) != 0) &#123;</div><div class="line"></div><div class="line">        if (elementData.getClass() != Object[].class)</div><div class="line"></div><div class="line">            elementData = Arrays.copyOf(elementData, size, Object[].class);</div><div class="line"></div><div class="line">    &#125; else &#123;</div><div class="line"></div><div class="line">        this.elementData = EMPTY_ELEMENTDATA;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="add方法"><a href="#add方法" class="headerlink" title="add方法"></a>add方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"></div><div class="line"> *  添加一个元素</div><div class="line"></div><div class="line"> *  首先调用ensureCapacityInternal,确保数组长度足够.当数组长度不够时,调用grow方法扩容</div><div class="line"></div><div class="line"> *  再往数组中添加元素,size++</div><div class="line"></div><div class="line"> */</div><div class="line"></div><div class="line">public boolean add(E e) &#123;</div><div class="line"></div><div class="line">    ensureCapacityInternal(size + 1);  // Increments modCount!!</div><div class="line"></div><div class="line">    elementData[size++] = e;</div><div class="line"></div><div class="line">    return true;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"></div><div class="line">*   最小需要数组大小=当前数组大小+插入元素个数</div><div class="line"></div><div class="line">*   当当前数组不是空数组,或者为空数组并且最小需要数组大小(minCapacity)大于10,则ensureExplicitCapacity参数为最小需要数组大小</div><div class="line"></div><div class="line">*   当最小需要数组大小小于10时,ensureExplicitCapacity参数为10</div><div class="line"></div><div class="line">*/</div><div class="line"></div><div class="line">private void ensureCapacityInternal(int minCapacity) &#123;</div><div class="line"></div><div class="line">    if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) &#123;</div><div class="line"></div><div class="line">        minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    ensureExplicitCapacity(minCapacity);</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"></div><div class="line">*   修改次数加1</div><div class="line"></div><div class="line">*   如果当前数组大小足够,就不需要调用grow.数组大小不够时,则调用grow扩容</div><div class="line"></div><div class="line">*/</div><div class="line"></div><div class="line">private void ensureExplicitCapacity(int minCapacity) &#123;</div><div class="line"></div><div class="line">    modCount++;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    // overflow-conscious code</div><div class="line"></div><div class="line">    if (minCapacity - elementData.length &gt; 0)</div><div class="line"></div><div class="line">        grow(minCapacity);</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"></div><div class="line"> *   扩容数组长度(newCapacity)为原有数组长度的1.5倍</div><div class="line"></div><div class="line"> *   当扩容数组长度不够最小需要数组大小时,将数组扩容至最小需要数组大小,当扩容数组长度够时使用扩容数组长度</div><div class="line"></div><div class="line"> *   当扩容数组长度大于最大数组长度时,若最小需要数组大小溢出int值时,报OOM错.否则扩容至int最大值</div><div class="line"></div><div class="line"> *   调用Arrays.copyOf进行复制扩容</div><div class="line"></div><div class="line"> */</div><div class="line"></div><div class="line">private void grow(int minCapacity) &#123;</div><div class="line"></div><div class="line">    // overflow-conscious code</div><div class="line"></div><div class="line">    int oldCapacity = elementData.length;</div><div class="line"></div><div class="line">    int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);</div><div class="line"></div><div class="line">    if (newCapacity - minCapacity &lt; 0)</div><div class="line"></div><div class="line">        newCapacity = minCapacity;</div><div class="line"></div><div class="line">    if (newCapacity - MAX_ARRAY_SIZE &gt; 0)</div><div class="line"></div><div class="line">        newCapacity = hugeCapacity(minCapacity);</div><div class="line"></div><div class="line">    // minCapacity is usually close to size, so this is a win:</div><div class="line"></div><div class="line">    elementData = Arrays.copyOf(elementData, newCapacity);</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">private static int hugeCapacity(int minCapacity) &#123;</div><div class="line"></div><div class="line">    if (minCapacity &lt; 0) // overflow</div><div class="line"></div><div class="line">        throw new OutOfMemoryError();</div><div class="line"></div><div class="line">    return (minCapacity &gt; MAX_ARRAY_SIZE) ?</div><div class="line"></div><div class="line">        Integer.MAX_VALUE :</div><div class="line"></div><div class="line">        MAX_ARRAY_SIZE;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="remove方法"><a href="#remove方法" class="headerlink" title="remove方法"></a>remove方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"></div><div class="line"> *  首先通过rangeCheck方法检查下标index有没有越界</div><div class="line"></div><div class="line"> *  如果移除的是末尾的元素，直接将数组最后一个元素赋null，size减1，不改变大小</div><div class="line"></div><div class="line"> *  如果不是末尾元素，调用System.arraycopy将数组从删除元素至末尾的元素复制一遍到前一位，将最后一个元素赋null，size减1</div><div class="line"></div><div class="line"> *  最后返回删除的那个元素</div><div class="line"></div><div class="line"> */</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">public E remove(int index) &#123;</div><div class="line"></div><div class="line">    rangeCheck(index);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    modCount++;</div><div class="line"></div><div class="line">    E oldValue = elementData(index);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    int numMoved = size - index - 1;</div><div class="line"></div><div class="line">    if (numMoved &gt; 0)</div><div class="line"></div><div class="line">        System.arraycopy(elementData, index+1, elementData, index,</div><div class="line"></div><div class="line">                         numMoved);</div><div class="line"></div><div class="line">    elementData[--size] = null; // clear to let GC do its work</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    return oldValue;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"></div><div class="line"> *  检查数组下标是否越界，越界抛IndexOutOfBoundsException异常</div><div class="line"></div><div class="line"> */</div><div class="line"></div><div class="line">private void rangeCheck(int index) &#123;</div><div class="line"></div><div class="line">    if (index &gt;= size)</div><div class="line"></div><div class="line">        throw new IndexOutOfBoundsException(outOfBoundsMsg(index));</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h4><ol>
+<li><p>当list一开始初始化时,数组长度为0.添加一个元素时,数组长度改为初始大小10.以后扩容为原有长度的1.5倍,若1.5倍还不够,则扩容至需求大小</p>
+</li>
+<li><p>ArrayList是线程不安全的，比如add方法：先在size下标处添加元素，再修改size++。当两个线程A、B，A在size处添加元素，还没修改size时，B又添加元素。随后AB都将size+1，则丢失了A添加的元素并且size错误。解决方案：在方法中使用synchronized (mutex) {}加锁</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/16/recover-hadoop-data/" rel="next" title="hadoop节点数据丢失恢复">
+                <i class="fa fa-chevron-left"></i> hadoop节点数据丢失恢复
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/15/change-hive-metastore-mysql/" rel="prev" title="修改hive metasore为mysql">
+                修改hive metasore为mysql <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="nichijouYC" />
+          <p class="site-author-name" itemprop="name">nichijouYC</p>
+          <p class="site-description motion-element" itemprop="description">纵使疾风起，人生不言弃</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/nichijouyc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ArrayList-jdk8-解析"><span class="nav-number">1.</span> <span class="nav-text">ArrayList( jdk8)解析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#属性"><span class="nav-number">1.0.1.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#构造方法"><span class="nav-number">1.0.2.</span> <span class="nav-text">构造方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#add方法"><span class="nav-number">1.1.</span> <span class="nav-text">add方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#remove方法"><span class="nav-number">1.2.</span> <span class="nav-text">remove方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意点"><span class="nav-number">1.3.</span> <span class="nav-text">注意点</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nichijouYC</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,696 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="纵使疾风起，人生不言弃" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="webx framework(基于servlet的web框架) 主要作用 初始化spring容器 初始化日志系统 增强request、response、session功能 提供pipeline流程处理机制 异常处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webx framework 源码解析">
+<meta property="og:url" content="http://yoursite.com/2017/06/24/webx-framework/index.html">
+<meta property="og:site_name" content="nichijouYC&#39;s Blog">
+<meta property="og:description" content="webx framework(基于servlet的web框架) 主要作用 初始化spring容器 初始化日志系统 增强request、response、session功能 提供pipeline流程处理机制 异常处理">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-06T08:29:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webx framework 源码解析">
+<meta name="twitter:description" content="webx framework(基于servlet的web框架) 主要作用 初始化spring容器 初始化日志系统 增强request、response、session功能 提供pipeline流程处理机制 异常处理">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> webx framework 源码解析 | nichijouYC's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nichijouYC's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                webx framework 源码解析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-24T20:23:49+08:00" content="2017-06-24">
+              2017-06-24
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="webx-framework-基于servlet的web框架"><a href="#webx-framework-基于servlet的web框架" class="headerlink" title="webx framework(基于servlet的web框架)"></a>webx framework(基于servlet的web框架)</h3><ul>
+<li>主要作用<ul>
+<li>初始化spring容器</li>
+<li>初始化日志系统</li>
+<li>增强request、response、session功能</li>
+<li>提供pipeline流程处理机制</li>
+<li>异常处理</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><p>webx应用启动过程</p>
+<ul>
+<li><p>启动时容器（tomcat jetty等）会去读web.xml，按照里面的配置去初始化listener，filter等</p>
+<ul>
+<li>web.xml加载过程<ol>
+<li>读取<code>&lt;listener&gt;&lt;/listener&gt;</code>和<code>&lt;context-param&gt;&lt;/context-param&gt;</code></li>
+<li>创建一个ServletContext（application）</li>
+<li>将<code>&lt;context-param&gt;&lt;/context-param&gt;</code>的name和value键值对存入ServletContext</li>
+<li>创建<code>&lt;listener&gt;&lt;/listener&gt;</code>中的类实例</li>
+<li>创建<code>&lt;filter&gt;&lt;/filter&gt;</code>中的过滤器</li>
+<li>当发生第一次请求时实例化<code>&lt;servlet&gt;&lt;/servlet&gt;</code>,一般不被容器销毁</li>
+</ol>
+</li>
+<li><p>web.xml </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 初始化日志系统 --&gt;</div><div class="line">&lt;listener&gt;</div><div class="line">    &lt;listener-class&gt;com.alibaba.citrus.logconfig.LogConfiguratorListener&lt;/listener-class&gt;</div><div class="line">&lt;/listener&gt;</div><div class="line"></div><div class="line">&lt;!-- 装载/WEB-INF/webx.xml, /WEB-INF/webx-*.xml --&gt;</div><div class="line">&lt;listener&gt;</div><div class="line">    &lt;listener-class&gt;com.alibaba.citrus.webx.context.WebxContextLoaderListener&lt;/listener-class&gt;</div><div class="line">&lt;/listener&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>初始化context过程</p>
+<ul>
+<li>容器首先调用由web.xml中指定的com.alibaba.citrus.webx.context.WebxContextLoaderListener(继承了spring的ContextLoaderListener，所以可以和spring通用)的contextInitialized方法，这个方法里面调用了createContextLoader方法（WebxContextLoaderListener覆盖了此方法），创建一个WebxComponentsLoader实例（所有组件共享)，并且调用了WebxComponentsLoader的initWebApplicationContext方法</li>
+<li><p>ContextLoaderListener.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public class ContextLoaderListener extends ContextLoader implements ServletContextListener &#123;</div><div class="line"></div><div class="line">    public void contextInitialized(ServletContextEvent event) &#123;</div><div class="line">        this.contextLoader = this.createContextLoader();</div><div class="line">        if(this.contextLoader == null) &#123;</div><div class="line">            this.contextLoader = this;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        this.contextLoader.initWebApplicationContext(event.getServletContext());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>WebxContextLoaderListener.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">public class WebxContextLoaderListener extends ContextLoaderListener &#123;</div><div class="line">@Override</div><div class="line">    protected final ContextLoader createContextLoader() &#123;</div><div class="line">        return new WebxComponentsLoader() &#123;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            protected Class&lt;? extends WebxComponentsContext&gt; getDefaultContextClass() &#123;</div><div class="line">                Class&lt;? extends WebxComponentsContext&gt; defaultContextClass = WebxContextLoaderListener.this</div><div class="line">                    .getDefaultContextClass();</div><div class="line"></div><div class="line">                if (defaultContextClass == null) &#123;</div><div class="line">                    defaultContextClass = super.getDefaultContextClass();</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                return defaultContextClass;</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>WebxComponentsLoader的initWebApplicationContext方法中保存servletContext对象，再调用了init方法和父类的initWebApplicationContext方法,父类中的initWebApplicationContext方法会调用createWebApplicationContext()，determineContextClass()拿到WebxComponentsContext的class，再调BeanUtils.instantiateClass方法创建了WebxComponentsContext对象(在spring中原有的是xmlApplicationContext，地位一样)</p>
+</li>
+<li><p>WebxComponentsLoader.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">public WebApplicationContext initWebApplicationContext(ServletContext servletContext) throws IllegalStateException,BeansException &#123;</div><div class="line">    this.servletContext = servletContext;</div><div class="line">    init();</div><div class="line"></div><div class="line">    return super.initWebApplicationContext(servletContext);</div><div class="line">&#125;</div><div class="line">protected void init() &#123;</div><div class="line">    setWebxConfigurationName(servletContext.getInitParameter(&quot;webxConfigurationName&quot;));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>ContextLoader.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">protected WebApplicationContext createWebApplicationContext(ServletContext sc) &#123;</div><div class="line">    Class&lt;?&gt; contextClass = this.determineContextClass(sc);</div><div class="line">    if(!ConfigurableWebApplicationContext.class.isAssignableFrom(contextClass)) &#123;</div><div class="line">        throw new ApplicationContextException(&quot;Custom context class [&quot; + contextClass.getName() + &quot;] is not of type [&quot; + ConfigurableWebApplicationContext.class.getName() + &quot;]&quot;);</div><div class="line">    &#125; else &#123;</div><div class="line">        return (ConfigurableWebApplicationContext)BeanUtils.instantiateClass(contextClass);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在initWebApplicationContext方法中获得WebxComponentsContext对象，具体调用configureAndRefreshWebApplicationContext()-&gt;refresh(),创建加载Spring容器配置</p>
+</li>
+<li><p>AbstractApplicationContext.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">public void refresh() throws BeansException, IllegalStateException &#123;</div><div class="line">    Object var1 = this.startupShutdownMonitor;</div><div class="line">    synchronized(this.startupShutdownMonitor) &#123;</div><div class="line">        this.prepareRefresh();</div><div class="line">        ConfigurableListableBeanFactory beanFactory = this.obtainFreshBeanFactory();</div><div class="line">        this.prepareBeanFactory(beanFactory);</div><div class="line"></div><div class="line">        try &#123;</div><div class="line">            this.postProcessBeanFactory(beanFactory);</div><div class="line">            this.invokeBeanFactoryPostProcessors(beanFactory);</div><div class="line">            this.registerBeanPostProcessors(beanFactory);</div><div class="line">            this.initMessageSource();</div><div class="line">            this.initApplicationEventMulticaster();</div><div class="line">            this.onRefresh();</div><div class="line">            this.registerListeners();</div><div class="line">            this.finishBeanFactoryInitialization(beanFactory);</div><div class="line">            this.finishRefresh();</div><div class="line">        &#125; catch (BeansException var5) &#123;</div><div class="line">            this.destroyBeans();</div><div class="line">            this.cancelRefresh(var5);</div><div class="line">            throw var5;</div><div class="line">        &#125;</div><div class="line">    &#125;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>WebxComponentsLoader覆盖了postProcessBeanFactory方法，实例化WebxComponentsCreator，并且调用了createComponents方法创建容器，父容器（root component，通过webx.xml建立）,子容器（sub component，通过webx-*.xml建立）创建子容器时，将子容器的父亲设置为了父容器，形成层级结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">/** 初始化components。 */</div><div class="line">private WebxComponentsImpl createComponents(WebxConfiguration parentConfiguration,</div><div class="line">                                            ConfigurableListableBeanFactory beanFactory) &#123;</div><div class="line">    ComponentsConfig componentsConfig = getComponentsConfig(parentConfiguration);</div><div class="line">    </div><div class="line">    // 假如isAutoDiscoverComponents==true，试图自动发现components</div><div class="line">    Map&lt;String, String&gt; componentNamesAndLocations = findComponents(componentsConfig, getServletContext());</div><div class="line">    </div><div class="line">    // 取得特别指定的components</div><div class="line">    Map&lt;String, ComponentConfig&gt; specifiedComponents = componentsConfig.getComponents();</div><div class="line">    </div><div class="line">    // 实际要初始化的comonents，为上述两种来源的并集</div><div class="line">    Set&lt;String&gt; componentNames = createTreeSet();</div><div class="line">    </div><div class="line">    componentNames.addAll(componentNamesAndLocations.keySet());</div><div class="line">    componentNames.addAll(specifiedComponents.keySet());</div><div class="line">    </div><div class="line">    // 创建root controller</div><div class="line">    WebxRootController rootController = componentsConfig.getRootController();</div><div class="line">    </div><div class="line">    if (rootController == null) &#123;</div><div class="line">        rootController = (WebxRootController) BeanUtils.instantiateClass(componentsConfig.getRootControllerClass());</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    // 创建并将components对象置入resolvable dependencies，以便注入到需要的bean中</div><div class="line">    WebxComponentsImpl components = new WebxComponentsImpl(componentsContext,</div><div class="line">                                                           componentsConfig.getDefaultComponent(), rootController, parentConfiguration);</div><div class="line">    </div><div class="line">    beanFactory.registerResolvableDependency(WebxComponents.class, components);</div><div class="line">    </div><div class="line">    // 初始化每个component</div><div class="line">    for (String componentName : componentNames) &#123;</div><div class="line">        ComponentConfig componentConfig = specifiedComponents.get(componentName);</div><div class="line">    </div><div class="line">        String componentPath = null;</div><div class="line">        WebxController controller = null;</div><div class="line">    </div><div class="line">        if (componentConfig != null) &#123;</div><div class="line">            componentPath = componentConfig.getPath();</div><div class="line">            controller = componentConfig.getController();</div><div class="line">        &#125;</div><div class="line">    </div><div class="line">        if (controller == null) &#123;</div><div class="line">            controller = (WebxController) BeanUtils.instantiateClass(componentsConfig.getDefaultControllerClass());</div><div class="line">        &#125;</div><div class="line">    </div><div class="line">        WebxComponentImpl component = new WebxComponentImpl(components, componentName, componentPath,</div><div class="line">                                                            componentName.equals(componentsConfig.getDefaultComponent()), controller,</div><div class="line">                                                            getWebxConfigurationName());</div><div class="line">    </div><div class="line">        components.addComponent(component);</div><div class="line">    </div><div class="line">        prepareComponent(component, componentNamesAndLocations.get(componentName));</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    return components;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>其他加载过程和spring一样，不同的是WebxApplicationContext指定寻找的配置项为/WEB-INF/webx-*.xml或者/WEB-INF/webx.xml</p>
+</li>
+<li><p>WebxApplicationContext.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public class WebxApplicationContext extends             ResourceLoadingXmlWebApplicationContext &#123;</div><div class="line">public WebxApplicationContext() &#123;&#125;</div><div class="line"></div><div class="line">    protected String[] getDefaultConfigLocations() &#123;</div><div class="line">        return this.getNamespace() != null?new String[]&#123;&quot;/WEB-INF/webx-*.xml&quot;.replace(&quot;*&quot;, this.getNamespace())&#125;:new String[]&#123;&quot;/WEB-INF/webx.xml&quot;&#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>另外还重写了finishRefresh方法，执行各个模块的容器初始化工作,解析配置文件中的bean,这样根容器和所有的子容器都初始化完成了</p>
+</li>
+<li><p>WebxComponentsContext.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected void finishRefresh() &#123;</div><div class="line">    super.finishRefresh();</div><div class="line">    getLoader().finishRefresh();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>WebxComponentsLoader.java</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">/** 初始化所有components。 */</div><div class="line">public void finishRefresh() &#123;</div><div class="line">    components.getWebxRootController().onFinishedProcessContext();</div><div class="line"></div><div class="line">    for (WebxComponent component : components) &#123;</div><div class="line">        logInBothServletAndLoggingSystem(&quot;Initializing Spring sub   WebApplicationContext: &quot; + component.getName());</div><div class="line"></div><div class="line">        WebxComponentContext wcc = (WebxComponentContext)   component.getApplicationContext();</div><div class="line">        WebxController controller = component.getWebxController();</div><div class="line"></div><div class="line">        wcc.refresh();</div><div class="line">        controller.onFinishedProcessContext();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    logInBothServletAndLoggingSystem(&quot;WebxComponents: initialization    completed&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>webx响应请求的过程</p>
+<ol>
+<li>因为webxframework基于servletapi，所有当一个请求来时，会被web.xml中配置的filter拦截.这边配置了两个filter，按顺序一个请求先经过mdc（将这次请求的信息打印到日志），再经过webx处理<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;filter&gt;</div><div class="line">    &lt;filter-name&gt;mdc&lt;/filter-name&gt;</div><div class="line">    &lt;filter-class&gt;com.alibaba.citrus.webx.servlet.SetLoggingContextFilter&lt;/filter-class&gt;</div><div class="line">&lt;/filter&gt;</div><div class="line"></div><div class="line">&lt;filter&gt;</div><div class="line">    &lt;filter-name&gt;webx&lt;/filter-name&gt;</div><div class="line">    &lt;filter-class&gt;com.alibaba.citrus.webx.servlet.WebxFrameworkFilter&lt;/filter-class&gt;</div><div class="line">    &lt;init-param&gt;</div><div class="line">        &lt;param-name&gt;excludes&lt;/param-name&gt;</div><div class="line">        &lt;param-value&gt;&lt;!-- 需要被“排除”的URL路径，以逗号分隔，如/static, *.jpg。适合于映射静态页面、图片。 --&gt;&lt;/param-value&gt;</div><div class="line">    &lt;/init-param&gt;</div><div class="line">    &lt;init-param&gt;</div><div class="line">        &lt;param-name&gt;passthru&lt;/param-name&gt;</div><div class="line">        &lt;param-value&gt;&lt;!-- 需要被“略过”的URL路径，以逗号分隔，如/myservlet, *.jsp。适用于映射servlet、filter。</div><div class="line">            对于passthru请求，webx的request-contexts服务、错误处理、开发模式等服务仍然可用。 --&gt;&lt;/param-value&gt;</div><div class="line">    &lt;/init-param&gt;</div><div class="line">&lt;/filter&gt;</div><div class="line"></div><div class="line">&lt;filter-mapping&gt;</div><div class="line">    &lt;filter-name&gt;mdc&lt;/filter-name&gt;</div><div class="line">    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</div><div class="line">&lt;/filter-mapping&gt;</div><div class="line"></div><div class="line">&lt;filter-mapping&gt;</div><div class="line">    &lt;filter-name&gt;webx&lt;/filter-name&gt;</div><div class="line">    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</div><div class="line">&lt;/filter-mapping&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<ol>
+<li><p>webx的class为WebxFrameworkFilter，当有请求来时，调用doFilter方法,首先判断是不是需要排除的path，是的话则转交给servlet处理，如果不是的话，调用root容器的service方法处理</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)</div><div class="line">        throws IOException, ServletException &#123;</div><div class="line">    String path = getResourcePath(request);</div><div class="line"></div><div class="line">    if (isExcluded(path)) &#123;</div><div class="line">        log.debug(&quot;Excluded request: &#123;&#125;&quot;, path);</div><div class="line">        chain.doFilter(request, response);</div><div class="line">        return;</div><div class="line">    &#125; else &#123;</div><div class="line">        log.debug(&quot;Accepted and started to process request: &#123;&#125;&quot;, path);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    try &#123;</div><div class="line">        getWebxComponents().getWebxRootController().service(request, response, chain);</div><div class="line">    &#125; catch (IOException e) &#123;</div><div class="line">        throw e;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>service方法中判断了url是不是属于passthru，如果不是的话调用handlerequest方法处理，如果是的话，则调用giveupControl放弃处理转交给servlet处理</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">public final void service(HttpServletRequest request, HttpServletResponse response, FilterChain chain)</div><div class="line">        throws Exception &#123;</div><div class="line">    RequestContext requestContext = null;</div><div class="line"></div><div class="line">    try &#123;</div><div class="line">        requestContext = assertNotNull(getRequestContext(request, response), &quot;could not get requestContext&quot;);</div><div class="line"></div><div class="line">        // 如果请求已经结束，则不执行进一步的处理。例如，当requestContext已经被重定向了，则立即结束请求的处理。</div><div class="line">        if (isRequestFinished(requestContext)) &#123;</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // 请求未结束，则继续处理...</div><div class="line">        request = requestContext.getRequest();</div><div class="line">        response = requestContext.getResponse();</div><div class="line"></div><div class="line">        // 如果是一个内部请求，则执行内部请求</div><div class="line">        if (handleInternalRequest(request, response)) &#123;</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // 如果不是内部的请求，并且没有被passthru，则执行handleRequest</div><div class="line">        if (isRequestPassedThru(request) || !handleRequest(requestContext)) &#123;</div><div class="line">            // 如果请求被passthru，或者handleRequest返回false（即pipeline放弃请求），</div><div class="line">            // 则调用filter chain，将控制交还给servlet engine。</div><div class="line">            giveUpControl(requestContext, chain);</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>WebxRootControllerImpl中的handleRequest方法，决定了这个请求由哪个子component处理，如果没有匹配到的则用默认defaultcomponent处理</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"> public class WebxRootControllerImpl extends AbstractWebxRootController &#123;</div><div class="line"> @Override</div><div class="line"> protected boolean handleRequest(RequestContext requestContext) throws Exception &#123;</div><div class="line">     HttpServletRequest request = requestContext.getRequest();</div><div class="line"></div><div class="line">     // Servlet mapping有两种匹配方式：前缀匹配和后缀匹配。</div><div class="line">     // 对于前缀匹配，例如：/servlet/aaa/bbb，servlet path为/servlet，path info为/aaa/bbb</div><div class="line">     // 对于前缀匹配，当mapping pattern为/*时，/aaa/bbb，servlet path为&quot;&quot;，path info为/aaa/bbb</div><div class="line">     // 对于后缀匹配，例如：/aaa/bbb.html，servlet path为/aaa/bbb.html，path info为null</div><div class="line">     //</div><div class="line">     // 对于前缀匹配，取其pathInfo；对于后缀匹配，取其servletPath。</div><div class="line">     String path = ServletUtil.getResourcePath(request);</div><div class="line"></div><div class="line">     // 再根据path查找component</div><div class="line">     WebxComponent component = getComponents().findMatchedComponent(path);</div><div class="line">     boolean served = false;</div><div class="line"></div><div class="line">     if (component != null) &#123;</div><div class="line">         try &#123;</div><div class="line">             WebxUtil.setCurrentComponent(request, component);</div><div class="line">             served = component.getWebxController().service(requestContext);</div><div class="line">         &#125; finally &#123;</div><div class="line">             WebxUtil.setCurrentComponent(request, null);</div><div class="line">         &#125;</div><div class="line">     &#125;</div><div class="line"></div><div class="line">     return served;</div><div class="line"> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>WebxComponentsLoader.java<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">public WebxComponent findMatchedComponent(String path) &#123;</div><div class="line">        if (!path.startsWith(&quot;/&quot;)) &#123;</div><div class="line">            path = &quot;/&quot; + path;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        WebxComponent defaultComponent = getDefaultComponent();</div><div class="line">        WebxComponent matched = null;</div><div class="line"></div><div class="line">        // 前缀匹配componentPath。</div><div class="line">        for (WebxComponent component : this) &#123;</div><div class="line">            if (component == defaultComponent) &#123;</div><div class="line">                continue;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            String componentPath = component.getComponentPath();</div><div class="line"></div><div class="line">            if (!path.startsWith(componentPath)) &#123;</div><div class="line">                continue;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            // path刚好等于componentPath，或者path以componentPath/为前缀</div><div class="line">            if (path.length() == componentPath.length() || path.charAt(componentPath.length()) == &apos;/&apos;) &#123;</div><div class="line">                matched = component;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        // fallback to default component</div><div class="line">        if (matched == null) &#123;</div><div class="line">            matched = defaultComponent;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return matched;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li>找到处理的component后，调用component的controller来处理请求，调用pipeline来处理,按照webx-app1.xml导入的pipeline.xml中定义的pipeline顺序来处理<ul>
+<li>WebxContrillerImpl.java<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public boolean service(RequestContext requestContext) throws Exception &#123;</div><div class="line">    PipelineInvocationHandle handle = pipeline.newInvocation();</div><div class="line"></div><div class="line">    handle.invoke();</div><div class="line"></div><div class="line">    // 假如pipeline被中断，则视作请求未被处理。filter将转入chain中继续处理请求。</div><div class="line">    return !handle.isBroken();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>pipeline.xml<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">&lt;services:pipeline&gt;</div><div class="line">    &lt;!-- 初始化turbine rundata，并在pipelineContext中设置可能会用到的对象(如rundata、utils)，以便valve取得。 --&gt;</div><div class="line">    &lt;pl-valves:prepareForTurbine /&gt;</div><div class="line"></div><div class="line">    &lt;!-- 分析URL，取得target。 --&gt;</div><div class="line">    &lt;pl-valves:analyzeURL /&gt;</div><div class="line">    ...</div><div class="line"></div><div class="line">    &lt;pl-valves:loop&gt;</div><div class="line">        &lt;pl-valves:choose&gt;</div><div class="line">            &lt;when&gt;</div><div class="line">                &lt;!-- 执行带模板的screen，默认有layout。 --&gt;</div><div class="line">                &lt;pl-conditions:target-extension-condition extension=&quot;null&quot; /&gt;</div><div class="line">                &lt;pl-valves:performAction /&gt;</div><div class="line">                &lt;pl-valves:performTemplateScreen /&gt;</div><div class="line">                &lt;pl-valves:renderTemplate /&gt;</div><div class="line">            &lt;/when&gt;</div><div class="line">           </div><div class="line">           ...</div><div class="line"></div><div class="line">    &lt;/pl-valves:loop&gt;</div><div class="line">&lt;/services:pipeline&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>在analyzeURL这个valve中，首先将url转成驼峰格式，去掉下划线，并设置action和actionEvent</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">public void invoke(PipelineContext pipelineContext) throws Exception &#123;</div><div class="line">    TurbineRunDataInternal rundata = (TurbineRunDataInternal) getTurbineRunData(request);</div><div class="line">    String target = null;</div><div class="line"></div><div class="line">    // 取得target，并转换成统一的内部后缀名。</div><div class="line">    String pathInfo = ServletUtil.getResourcePath(rundata.getRequest()).substring(</div><div class="line">            component.getComponentPath().length());</div><div class="line"></div><div class="line">    if (&quot;/&quot;.equals(pathInfo)) &#123;</div><div class="line">        pathInfo = getHomepage();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 注意，必须将pathInfo转换成camelCase。</div><div class="line">    int lastSlashIndex = pathInfo.lastIndexOf(&quot;/&quot;);</div><div class="line"></div><div class="line">    if (lastSlashIndex &gt;= 0) &#123;</div><div class="line">        pathInfo = pathInfo.substring(0, lastSlashIndex) + &quot;/&quot;</div><div class="line">                   + StringUtil.toCamelCase(pathInfo.substring(lastSlashIndex + 1));</div><div class="line">    &#125; else &#123;</div><div class="line">        pathInfo = StringUtil.toCamelCase(pathInfo);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    target = mappingRuleService.getMappedName(EXTENSION_INPUT, pathInfo);</div><div class="line"></div><div class="line">    rundata.setTarget(target);</div><div class="line"></div><div class="line">    // 取得action</div><div class="line">    String action = StringUtil.toCamelCase(trimToNull(rundata.getParameters().getString(actionParam)));</div><div class="line"></div><div class="line">    action = mappingRuleService.getMappedName(ACTION_MODULE, action);</div><div class="line">    rundata.setAction(action);</div><div class="line"></div><div class="line">    // 取得actionEvent</div><div class="line">    String actionEvent = ActionEventUtil.getEventName(rundata.getRequest());</div><div class="line">    rundata.setActionEvent(actionEvent);</div><div class="line"></div><div class="line">    pipelineContext.invokeNext();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>performAction根据action在action文件夹下找到对应的action类,performScreen根据target在screen文件夹找到对应的screen类，执行execute方法</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;when&gt;</div><div class="line">    &lt;!-- 执行不带模板的screen，无layout。 --&gt;</div><div class="line">    &lt;pl-conditions:target-extension-condition extension=&quot;do&quot; /&gt;</div><div class="line">    &lt;pl-valves:performAction /&gt;</div><div class="line">    &lt;pl-valves:performScreen /&gt;</div><div class="line">&lt;/when&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>webx响应请求时的默认约定<ol>
+<li>根据url寻找对应的component组件处理时（WebxComponentsLoad.WebxComponentsImpl.findMatchedComponent()）<ul>
+<li>遍历所有的组件，若url path等于component path或者url path以component path/开头，则找到组件</li>
+<li>遍历完都没有找到的话，返回默认组件处理（webx.xml中配置）</li>
+</ul>
+</li>
+<li>pipeline中分析URL时，设置请求的target和action。target在以后寻找template，screen，action时需要用到（AnalyzeURLValve.invoke()）<ul>
+<li>取出url中除了component path的剩余部分。这边需要注意，如果当前是默认component处理的话，则component path为空，取出整个url。其他component，component path为component的name</li>
+<li>如果取出来的path为空，则赋值为homepage（pipeline中设置）</li>
+<li>将path的最后一段’/‘内容去掉下划线转成驼峰格式</li>
+<li>将path根据mapping rule（id=extension.input）设置target（mapping rule在webx-component-and-root.xml中设置）</li>
+<li>取出request中的action，根据mapping rule（id=action）设置action</li>
+</ul>
+</li>
+<li>performAction寻找action（performActionValve.invoke()）<ul>
+<li>将action根据mapping rule（id=action，direct-module-rule同名寻找），在moduleLoadService（webx-xxx.xml中配置）中配置的包地址中寻找同名的action，并调用execute()</li>
+</ul>
+</li>
+<li>performScreen寻找screen（performScreenValve.invoke()）<ul>
+<li>将target根据mapping rule（id=screen.notemplate，direct-module-rule同名寻找），在moduleLoadService（webx-xxx.xml中配置）中配置的包地址中寻找同名的screen，并调用execute()</li>
+</ul>
+</li>
+<li>performTemplateScreen寻找带模板的screen（PerformTemplateScreenValve.invoke()）<ul>
+<li>将target根据mapping rule（id=screen，fallback-module-rule向上寻找），在moduleLoadService（webx-xxx.xml中配置）中配置的包地址中寻找screen，并调用execute()</li>
+<li>fallback-module-rule寻找规则，向上匹配寻找，对于xxx/yyy/zzz的path，依次匹配的路径为xxx/yyy/zzz，xxx/yyy/default,xxx/default,default</li>
+</ul>
+</li>
+<li>renderTemplate渲染模板（RenderTemplateValve.invoke()）<ul>
+<li>将target根据mapping rule（id=screen.template，direct-template-rule同名寻找），在template/screen文件夹下寻找同名的模板文件，并渲染</li>
+<li>将target根据mapping rule（id=layout.template，fallback-template-rule向上寻找），在template/layout文件夹下向上匹配寻找模板文件，并渲染</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/20/collection-summary/" rel="next" title="java集合总结">
+                <i class="fa fa-chevron-left"></i> java集合总结
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/10/rpc-hsf/" rel="prev" title="RPC框架原理">
+                RPC框架原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="nichijouYC" />
+          <p class="site-author-name" itemprop="name">nichijouYC</p>
+          <p class="site-description motion-element" itemprop="description">纵使疾风起，人生不言弃</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/nichijouyc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#webx-framework-基于servlet的web框架"><span class="nav-number">1.</span> <span class="nav-text">webx framework(基于servlet的web框架)</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nichijouYC</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

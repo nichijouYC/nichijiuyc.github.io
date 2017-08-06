@@ -1,0 +1,646 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="纵使疾风起，人生不言弃" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="JMS消息规范 JMS（Java Message Service,java消息服务， JSR 914），JMS的客户端之间可以通过JMS服务进行异步的消息传输。  JMS是消息服务，只要对方收到消息即可，发送者不需要消费者的反馈   特点 松耦合，将发送者和消费者分离开 异步性，发送者不需要等待消费者响应 可靠性，发送失败的消息在中间件中保存，只有消费者收到确认以后才删除消息">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JMS消息规范和消息队列">
+<meta property="og:url" content="http://yoursite.com/2017/07/10/jms-mq-metaq/index.html">
+<meta property="og:site_name" content="nichijouYC&#39;s Blog">
+<meta property="og:description" content="JMS消息规范 JMS（Java Message Service,java消息服务， JSR 914），JMS的客户端之间可以通过JMS服务进行异步的消息传输。  JMS是消息服务，只要对方收到消息即可，发送者不需要消费者的反馈   特点 松耦合，将发送者和消费者分离开 异步性，发送者不需要等待消费者响应 可靠性，发送失败的消息在中间件中保存，只有消费者收到确认以后才删除消息">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://onobwtidg.bkt.clouddn.com/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.png">
+<meta property="og:image" content="http://onobwtidg.bkt.clouddn.com/metaq.png">
+<meta property="og:image" content="http://onobwtidg.bkt.clouddn.com/metaq%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF.jpg">
+<meta property="og:image" content="http://onobwtidg.bkt.clouddn.com/broker%E6%8E%A5%E5%8F%97%E6%B6%88%E6%81%AF.jpg">
+<meta property="og:updated_time" content="2017-08-06T08:29:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JMS消息规范和消息队列">
+<meta name="twitter:description" content="JMS消息规范 JMS（Java Message Service,java消息服务， JSR 914），JMS的客户端之间可以通过JMS服务进行异步的消息传输。  JMS是消息服务，只要对方收到消息即可，发送者不需要消费者的反馈   特点 松耦合，将发送者和消费者分离开 异步性，发送者不需要等待消费者响应 可靠性，发送失败的消息在中间件中保存，只有消费者收到确认以后才删除消息">
+<meta name="twitter:image" content="http://onobwtidg.bkt.clouddn.com/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> JMS消息规范和消息队列 | nichijouYC's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nichijouYC's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JMS消息规范和消息队列
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-10T23:02:19+08:00" content="2017-07-10">
+              2017-07-10
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="JMS消息规范"><a href="#JMS消息规范" class="headerlink" title="JMS消息规范"></a>JMS消息规范</h2><ul>
+<li><p>JMS（Java Message Service,java消息服务， JSR 914），JMS的客户端之间可以通过JMS服务进行异步的消息传输。</p>
+</li>
+<li><p>JMS是消息服务，只要对方收到消息即可，发送者不需要消费者的反馈</p>
+</li>
+</ul>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>松耦合，将发送者和消费者分离开</li>
+<li>异步性，发送者不需要等待消费者响应</li>
+<li>可靠性，发送失败的消息在中间件中保存，只有消费者收到确认以后才删除消息</li>
+</ul>
+<a id="more"></a>
+<h3 id="消息模型"><a href="#消息模型" class="headerlink" title="消息模型"></a>消息模型</h3><ol>
+<li>点对点Point-to-Point(P2P)</li>
+<li>发布订阅Publish/Subscribe(Pub/Sub)</li>
+</ol>
+<h4 id="点对点模型"><a href="#点对点模型" class="headerlink" title="点对点模型"></a>点对点模型</h4><ul>
+<li>每个消息只有一个消费者（Consumer）(即一旦被消费，消息就不再在消息队列中)</li>
+<li>接收者在成功接收消息之后需向队列应答成功</li>
+<li>发送者和接收者之间在时间上没有依赖性，也就是说当发送者发送了消息之后，不管接收者有没有正在运行，它不会影响到消息被发送到队列</li>
+</ul>
+<h4 id="Pub-Sub模型"><a href="#Pub-Sub模型" class="headerlink" title="Pub/Sub模型"></a>Pub/Sub模型</h4><ul>
+<li>每个消息可以有多个消费者</li>
+<li>发布者和订阅者之间有时间上的依赖性。针对某个主题（Topic）的订阅者，它必须创建一个订阅者之后，才能消费发布者的消息，而且为了消费消息，订阅者必须保持运行的状态（或者采用持久订阅模式）。</li>
+</ul>
+<h3 id="消息确认"><a href="#消息确认" class="headerlink" title="消息确认"></a>消息确认</h3><ul>
+<li>JMS定义了消息确认概念，消费者可以在收取一个消息时自动确认。也可以在一次会话过程，可以像jdbc那样，设置一个手动事务，处理完成后，提交，确认所有的消息</li>
+<li>如果没有确认，JMS还会重试再次发送消息</li>
+</ul>
+<h3 id="消息持久化"><a href="#消息持久化" class="headerlink" title="消息持久化"></a>消息持久化</h3><ul>
+<li>JMS定义了消息的持久化。内存放一份，持久化的介质中放一份。queue默认是持久化的。topic，因为要发送给多个人，默认是非持久化的（下线就收不到消息）。或者持久订阅（无论订阅者是否在线都能收到所有消息）</li>
+</ul>
+<h3 id="符合JMS规范需要实现的接口"><a href="#符合JMS规范需要实现的接口" class="headerlink" title="符合JMS规范需要实现的接口"></a>符合JMS规范需要实现的接口</h3><ul>
+<li>javax.jms.Message: 消息</li>
+<li>javax.jms.Queue: P2P模式的消息目的地</li>
+<li>javax.jms.Topic: 发布订阅模式的消息目的地</li>
+<li>javax.jms.ConnectionFactory: 创建连接的工厂</li>
+<li>javax.jms.Connection: 客户端到jms的活动连接</li>
+<li>javax.jms.Session: 发送和接受消息的单线程上下文</li>
+<li>javax.jms.MessageProducer: Session创建对象，用于发送消息到queue或者topic</li>
+<li>javax.jms.MessageConsumer: Session创建对象，用于接受queue或者topic</li>
+</ul>
+<h3 id="JMS规范不包含的内容"><a href="#JMS规范不包含的内容" class="headerlink" title="JMS规范不包含的内容"></a>JMS规范不包含的内容</h3><ul>
+<li>负载均衡</li>
+<li>容错等</li>
+</ul>
+<h2 id="消息队列的设计"><a href="#消息队列的设计" class="headerlink" title="消息队列的设计"></a>消息队列的设计</h2><ul>
+<li><p>使用mq的几个场景及解决方案</p>
+<ol>
+<li>业务解耦<ul>
+<li>基于消息的模型，关心的是通知 ，而不是处理，不关心处理结果</li>
+<li>mq通过两次rpc，传递消息</li>
+</ul>
+</li>
+<li>广播消息<ul>
+<li>将一个消息投递给下游多个业务方</li>
+<li>要实现广播消息，mq需要维护所有消费者信息。为了能自动感知消费者上下线，需要引入configserver配置中心</li>
+</ul>
+</li>
+<li>错峰控流<ul>
+<li>解决上下游处理速度不对等的问题</li>
+<li>要实现错峰控流，应对消费者处理消息不及时的问题。需要将消息在mq中堆积，在合适的时候投递，需要将消息持久化存储</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p><img src="http://onobwtidg.bkt.clouddn.com/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.png" alt="消息队列设计"></p>
+</li>
+<li>关键问题的解决思路<ol>
+<li>可靠投递：保证可靠投递，必须要在发送消息时，先消息落地存储，再发送，等待结果。如果发生、消费失败或者不知道失败（超时），重发这个消息。要保证消息不丢。肯定会有消息重复的问题</li>
+<li>重复消息：消费者做业务幂等或者消息去重</li>
+<li>顺序消息：从发送方到服务方到接受者都是单点单线程。并且消费者来处理由网络引起的乱序问题，按照消息唯一key的顺序处理</li>
+<li>慢消费：消费者用pull模型获取消息。因为消费者消费速度慢，由消费者主动向broker要数据来处理。如果用push模型的话，会把消费者撑爆。可以通过长轮询实现，保持broker和消费者的长连接</li>
+</ol>
+</li>
+</ul>
+<h2 id="metaq"><a href="#metaq" class="headerlink" title="metaq"></a>metaq</h2><ul>
+<li>支持严格的消息顺序</li>
+<li>支持Topic与Queue两种模式</li>
+<li>亿级消息堆积能力</li>
+<li>比较友好的分布式特性</li>
+<li>同时支持Push与Pull方式消费消息</li>
+<li>所有的消息都是文件持久化的</li>
+<li>另外，metaq并没有支持上面说的jms规范</li>
+</ul>
+<h3 id="metaq架构图"><a href="#metaq架构图" class="headerlink" title="metaq架构图"></a>metaq架构图</h3><p><img src="http://onobwtidg.bkt.clouddn.com/metaq.png" alt="metaq架构图"></p>
+<ul>
+<li>producer集群：消息生产者集群</li>
+<li>nameserver集群：管理生产者，消费者，broker， 和维护路由关系</li>
+<li>consumer集群：消息消费者集群</li>
+<li>broker-master-slave：消息转发集群，并且有master、slave主从备份</li>
+</ul>
+<h3 id="metaq发送和接受消息过程"><a href="#metaq发送和接受消息过程" class="headerlink" title="metaq发送和接受消息过程"></a>metaq发送和接受消息过程</h3><ul>
+<li>producer发送消息<br><img src="http://onobwtidg.bkt.clouddn.com/metaq%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF.jpg" alt="metaq-producer发送消息"></li>
+<li>broker接受消息<br><img src="http://onobwtidg.bkt.clouddn.com/broker%E6%8E%A5%E5%8F%97%E6%B6%88%E6%81%AF.jpg" alt="metaq-broker接受消息"></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/10/rpc-hsf/" rel="next" title="RPC框架原理">
+                <i class="fa fa-chevron-left"></i> RPC框架原理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="nichijouYC" />
+          <p class="site-author-name" itemprop="name">nichijouYC</p>
+          <p class="site-description motion-element" itemprop="description">纵使疾风起，人生不言弃</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/nichijouyc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JMS消息规范"><span class="nav-number">1.</span> <span class="nav-text">JMS消息规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">1.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消息模型"><span class="nav-number">1.2.</span> <span class="nav-text">消息模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#点对点模型"><span class="nav-number">1.2.1.</span> <span class="nav-text">点对点模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pub-Sub模型"><span class="nav-number">1.2.2.</span> <span class="nav-text">Pub/Sub模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消息确认"><span class="nav-number">1.3.</span> <span class="nav-text">消息确认</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消息持久化"><span class="nav-number">1.4.</span> <span class="nav-text">消息持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#符合JMS规范需要实现的接口"><span class="nav-number">1.5.</span> <span class="nav-text">符合JMS规范需要实现的接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JMS规范不包含的内容"><span class="nav-number">1.6.</span> <span class="nav-text">JMS规范不包含的内容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息队列的设计"><span class="nav-number">2.</span> <span class="nav-text">消息队列的设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#metaq"><span class="nav-number">3.</span> <span class="nav-text">metaq</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#metaq架构图"><span class="nav-number">3.1.</span> <span class="nav-text">metaq架构图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#metaq发送和接受消息过程"><span class="nav-number">3.2.</span> <span class="nav-text">metaq发送和接受消息过程</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nichijouYC</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

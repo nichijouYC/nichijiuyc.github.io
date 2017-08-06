@@ -1,0 +1,596 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="纵使疾风起，人生不言弃" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Scrapy的官网教程十分详细，并且也有中文版，推荐阅读。 英文版 中文版">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scrapy_Quick_Start">
+<meta property="og:url" content="http://yoursite.com/2015/07/22/scrapy-quick-start/index.html">
+<meta property="og:site_name" content="nichijouYC&#39;s Blog">
+<meta property="og:description" content="Scrapy的官网教程十分详细，并且也有中文版，推荐阅读。 英文版 中文版">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-06T06:59:55.863Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scrapy_Quick_Start">
+<meta name="twitter:description" content="Scrapy的官网教程十分详细，并且也有中文版，推荐阅读。 英文版 中文版">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Scrapy_Quick_Start | nichijouYC's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nichijouYC's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Scrapy_Quick_Start
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-22T10:39:47+08:00" content="2015-07-22">
+              2015-07-22
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Scrapy的官网教程十分详细，并且也有中文版，推荐阅读。</p>
+<p><a href="http://doc.scrapy.org/en/1.0/intro/overview.html" target="_blank" rel="external">英文版</a></p>
+<p><a href="http://scrapy-chs.readthedocs.org/zh_CN/latest/intro/overview.html" target="_blank" rel="external">中文版</a><br><a id="more"></a></p>
+<h2 id="Scrapy环境搭建及简单实例"><a href="#Scrapy环境搭建及简单实例" class="headerlink" title="Scrapy环境搭建及简单实例"></a>Scrapy环境搭建及简单实例</h2><p>Scrapy(<a href="http://scrapy.org/" target="_blank" rel="external">官网</a>)是Python环境下的一个Web抓取框架，可以方便的抓取Web页面并且提取结构化数据。</p>
+<h2 id="Win7下搭建Python爬虫库Scrapy步骤"><a href="#Win7下搭建Python爬虫库Scrapy步骤" class="headerlink" title="Win7下搭建Python爬虫库Scrapy步骤"></a>Win7下搭建Python爬虫库Scrapy步骤</h2><p>Scrapy官网安装教程(<a href="http://doc.scrapy.org/en/1.0/intro/install.html" target="_blank" rel="external">地址</a>)</p>
+<p>步骤</p>
+<ul>
+<li>安装 Python2.7(<a href="https://www.python.org/downloads/" target="_blank" rel="external">地址</a>)</li>
+<li>安装 pywin32(<a href="http://sourceforge.net/projects/pywin32/files/" target="_blank" rel="external">地址</a>)</li>
+<li>安装Python包管理工具 PIP<ol>
+<li>下载 pip文件pip-7.1.0.tar.gz(<a href="https://pypi.python.org/pypi/pip#downloads" target="_blank" rel="external">地址</a>)</li>
+<li>下载 setuptools文件setuptools-18.0.1.tar.gz(<a href="https://pypi.python.org/pypi/setuptools" target="_blank" rel="external">地址</a>)</li>
+<li>解压文件到Python安装目录下的 <code>Lib/site-packages/</code>下</li>
+<li>进入PIP目录运行<code>setup.py</code>安装(<code>python setup.py install</code>)</li>
+<li>将Python安装目录下的<code>\Scripts</code>加入环境变量Path中</li>
+</ol>
+</li>
+<li>安装Scrapy<ol>
+<li>命令行运行<code>pip install scrapy</code>进行下载安装</li>
+<li>命令行输入<code>scrapy</code>，查看安装是否成功</li>
+</ol>
+</li>
+</ul>
+<h2 id="使用Scrapy爬虫的一个简单实例"><a href="#使用Scrapy爬虫的一个简单实例" class="headerlink" title="使用Scrapy爬虫的一个简单实例"></a>使用Scrapy爬虫的一个简单实例</h2><p>Scrapy官网实例教程(<a href="http://doc.scrapy.org/en/1.0/intro/tutorial.html" target="_blank" rel="external">地址</a>)</p>
+<p>使用Scrapy抓取本博客的博文列表</p>
+<ul>
+<li><p>创建一个新的Scrapy项目</p>
+<ul>
+<li>在一个空目录下打开命令行执行：<code>scrapy startproject tutorial</code>，会新生成一个名为tutorial的文件夹</li>
+<li>目录结构如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">tutorial/</div><div class="line">scrapy.cfg            # deploy configuration file</div><div class="line">tutorial/             # project&apos;s Python module, you&apos;ll import your code from here</div><div class="line">    __init__.py</div><div class="line">    items.py          # project items file</div><div class="line">    pipelines.py      # project pipelines file</div><div class="line">    settings.py       # project settings file</div><div class="line">    spiders/          # a directory where you&apos;ll later put your spiders</div><div class="line">        __init__.py</div><div class="line">        ...</div><div class="line">  </div></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>定义抓取目标（Item）<ul>
+<li>本实例暂不使用</li>
+</ul>
+</li>
+<li>定义自己的爬虫(Spiders)<ol>
+<li>在spiders文件夹下新建spider.py文件</li>
+<li>定义一个继承scrapy.Spider的BlogSpider类</li>
+<li>定义BlogSpider类的name(名称)，start_urls(抓取网页url)和parse方法(对抓到的页面html的处理)<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> scrapy <span class="keyword">import</span> Spider</div><div class="line"><span class="keyword">from</span> scrapy.selector <span class="keyword">import</span> Selector</div><div class="line"><span class="keyword">import</span> sys</div><div class="line">sys.stdout=open(<span class="string">'C:\out.txt'</span>,<span class="string">'w'</span>) <span class="comment">#将打印信息输出在相应的位置下</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">BlogSpider</span><span class="params">(Spider)</span>:</span></div><div class="line">    name = <span class="string">"blogspider"</span></div><div class="line">    allowed_domains = [<span class="string">"github.io"</span>]</div><div class="line">    start_urls = [</div><div class="line">    <span class="string">"http://nichijouyc.github.io/blog/archives/&amp;quot;</span></div><div class="line"><span class="string">    ]</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    def parse(self, response):</span></div><div class="line"><span class="string">        print 'Blog List:'</span></div><div class="line"><span class="string">        sel = Selector(response)</span></div><div class="line"><span class="string">        blogs = sel.xpath('//article/div/article/h1/a/text()').extract()</span></div><div class="line"><span class="string">        for blog in blogs:</span></div><div class="line"><span class="string">            print blog.encode('gb2312')</span></div><div class="line"><span class="string">    </span></div></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li>开始抓取<ul>
+<li>在tutorial目录下执行<code>scrapy crawl blogspider</code>，在c盘的<code>out.txt</code>文件中出现本博客的博文列表，抓取成功。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/21/github-octopress-blog-tutorial/" rel="next" title="GitHub_Octopress_Blog_Tutorial">
+                <i class="fa fa-chevron-left"></i> GitHub_Octopress_Blog_Tutorial
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/31/machine-learning-in-action-note-one/" rel="prev" title="机器学习实战笔记(一)">
+                机器学习实战笔记(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="nichijouYC" />
+          <p class="site-author-name" itemprop="name">nichijouYC</p>
+          <p class="site-description motion-element" itemprop="description">纵使疾风起，人生不言弃</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/nichijouyc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Scrapy环境搭建及简单实例"><span class="nav-number">1.</span> <span class="nav-text">Scrapy环境搭建及简单实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Win7下搭建Python爬虫库Scrapy步骤"><span class="nav-number">2.</span> <span class="nav-text">Win7下搭建Python爬虫库Scrapy步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Scrapy爬虫的一个简单实例"><span class="nav-number">3.</span> <span class="nav-text">使用Scrapy爬虫的一个简单实例</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nichijouYC</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
