@@ -1,0 +1,730 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="纵使疾风起，人生不言弃" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="java基础8种基本类型   基本类型 大小 封装类     boolean 1位 Boolean   byte 8位=1Byte=1字节 Byte   char 16位=2字节 Character   short 16位=2字节 Short   int 32位=4字节 Integer   long 64位=8字节   表达时L做后缀 Long   float 32位=4字节   表达时F做后缀">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java基础知识总结">
+<meta property="og:url" content="http://yoursite.com/2017/05/03/java-base-summary/index.html">
+<meta property="og:site_name" content="nichijouYC&#39;s Blog">
+<meta property="og:description" content="java基础8种基本类型   基本类型 大小 封装类     boolean 1位 Boolean   byte 8位=1Byte=1字节 Byte   char 16位=2字节 Character   short 16位=2字节 Short   int 32位=4字节 Integer   long 64位=8字节   表达时L做后缀 Long   float 32位=4字节   表达时F做后缀">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-10T16:57:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java基础知识总结">
+<meta name="twitter:description" content="java基础8种基本类型   基本类型 大小 封装类     boolean 1位 Boolean   byte 8位=1Byte=1字节 Byte   char 16位=2字节 Character   short 16位=2字节 Short   int 32位=4字节 Integer   long 64位=8字节   表达时L做后缀 Long   float 32位=4字节   表达时F做后缀">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> java基础知识总结 | nichijouYC's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">nichijouYC's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                java基础知识总结
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-05-03T19:02:19+08:00" content="2017-05-03">
+              2017-05-03
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="java基础"><a href="#java基础" class="headerlink" title="java基础"></a>java基础</h3><h4 id="8种基本类型"><a href="#8种基本类型" class="headerlink" title="8种基本类型"></a>8种基本类型</h4><table>
+<thead>
+<tr>
+<th style="text-align:center">基本类型</th>
+<th style="text-align:center">大小</th>
+<th style="text-align:center">封装类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center">1位</td>
+<td style="text-align:center">Boolean</td>
+</tr>
+<tr>
+<td style="text-align:center">byte</td>
+<td style="text-align:center">8位=1Byte=1字节</td>
+<td style="text-align:center">Byte</td>
+</tr>
+<tr>
+<td style="text-align:center">char</td>
+<td style="text-align:center">16位=2字节</td>
+<td style="text-align:center">Character</td>
+</tr>
+<tr>
+<td style="text-align:center">short</td>
+<td style="text-align:center">16位=2字节</td>
+<td style="text-align:center">Short</td>
+</tr>
+<tr>
+<td style="text-align:center">int</td>
+<td style="text-align:center">32位=4字节</td>
+<td style="text-align:center">Integer</td>
+</tr>
+<tr>
+<td style="text-align:center">long</td>
+<td style="text-align:center">64位=8字节   表达时L做后缀</td>
+<td style="text-align:center">Long</td>
+</tr>
+<tr>
+<td style="text-align:center">float</td>
+<td style="text-align:center">32位=4字节   表达时F做后缀</td>
+<td style="text-align:center">Float</td>
+</tr>
+<tr>
+<td style="text-align:center">double</td>
+<td style="text-align:center">64位=8字节</td>
+<td style="text-align:center">Double</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<ul>
+<li>基本类型都有默认值,比如0,false等等,但是封装类的默认值为null,所以封装类自动拆箱要警惕空指针异常</li>
+<li>jdk1.5后,提供了自动装箱(基本类型-&gt;封装类)/拆箱(封装类-&gt;基本类型)<ul>
+<li>自动装箱(valueOf方法)<ul>
+<li>Integer i = 100 -&gt; Integer i = Integer.ValueOf(100)</li>
+</ul>
+</li>
+<li>自动拆箱(xxxValue方法)<ul>
+<li>i++ -&gt; i.intValue()++</li>
+</ul>
+</li>
+<li>Integer的自动装箱,在-128到127之间,返回的缓存的Integer对象.不在这个范围内的是一个新的newInteger对象  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">public static Integer valueOf(int i) &#123;</div><div class="line">    if(i &gt;= -128 &amp;&amp; i &lt;= IntegerCache.high)　　</div><div class="line">        return IntegerCache.cache[i + 128];</div><div class="line">    else</div><div class="line">        return new Integer(i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="equals-hashcode"><a href="#equals-hashcode" class="headerlink" title="equals,hashcode,=="></a>equals,hashcode,==</h4><ul>
+<li>==比较的是两个对象的引用(内存地址)是否相同,也可以比较两个基本类型值是不是相等</li>
+<li>equals()比较的是两个对象的值是不是相等.可以重写equals方法来自定义.默认就是用==比较,看地址是否相等.String重写这个方法,比较内容</li>
+<li>hashcode()方法的值为对象在内存的存储地址.native方法.集合中先通过比较hashcode,在调用equals来判断两个元素是否相等.hash的查找快O(1)</li>
+</ul>
+<h4 id="Object类中的方法"><a href="#Object类中的方法" class="headerlink" title="Object类中的方法"></a>Object类中的方法</h4><ol>
+<li>hashCode(): 对象在内存的存储地址</li>
+<li>equals(): 调用==</li>
+<li>clone(): 返回clone的新对象</li>
+<li>toString(): 返回类名+@+hashcode的16进制数</li>
+<li>notify, notifyAll(): 唤醒等待这个对象锁的线程</li>
+<li>wait(): 使当前拥有这个对象锁的线程等待</li>
+</ol>
+<h4 id="try-catch的执行顺序和return"><a href="#try-catch的执行顺序和return" class="headerlink" title="try-catch的执行顺序和return"></a>try-catch的执行顺序和return</h4><ul>
+<li>finally块中的内容会先于try中的return语句执行，如果finall语句块中也有return语句的话，那么直接从finally中返回了.如果没有return语句的话,finally块中无法对try中return的值进行改变</li>
+</ul>
+<h4 id="接口与抽象类区别"><a href="#接口与抽象类区别" class="headerlink" title="接口与抽象类区别"></a>接口与抽象类区别</h4><ul>
+<li>接口中没有任何实现,抽象类中可以有部分实现</li>
+<li>可以实现多个接口,但是只能继承一个抽象类</li>
+</ul>
+<h4 id="子类-父类的构造方法-静态块的执行顺序"><a href="#子类-父类的构造方法-静态块的执行顺序" class="headerlink" title="子类,父类的构造方法,静态块的执行顺序"></a>子类,父类的构造方法,静态块的执行顺序</h4><ol>
+<li>先执行父类的静态代码块和静态变量初始化，并且静态代码块和静态变量的执行顺序只跟代码中出现的顺序有关。</li>
+<li>执行子类的静态代码块和静态变量初始化。</li>
+<li>执行父类的实例变量初始化</li>
+<li>执行父类的初始化块</li>
+<li>执行父类的构造函数</li>
+<li>执行子类的实例变量初始化</li>
+<li>执行子类的初始化块</li>
+<li>执行子类的构造函数</li>
+</ol>
+<h4 id="异常相关的分类"><a href="#异常相关的分类" class="headerlink" title="异常相关的分类"></a>异常相关的分类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">---Throwable</div><div class="line">  |----- Error</div><div class="line">  |----- Exception</div><div class="line">            |--------RuntimeException(ClassNotFoundException, NullPointerException)</div><div class="line">            |--------IOException(FileNotFoundException)</div><div class="line">            |--------.....Exception</div></pre></td></tr></table></figure>
+<ul>
+<li>Throwable: 所有异常的接口</li>
+<li>Error: JVM严重错误,不可捕捉,无法恢复,会导致直接退出程序</li>
+<li>Exception: 由于程序设计不合理或者当前环境问题引发的异常.可能可以恢复,可以捕捉</li>
+<li>checked Exception: 在编译期强制检查的异常,比如IOException等,要求对这类异常强制处理,throws或者catch.客户端可以从这些错误中恢复</li>
+<li>unchecked Exception: 可以不必捕获或者处理的异常.都是RunTimeException的子类或者Error类.都是程序代码可以避免.客户端无法从这些错误中恢复</li>
+<li>RuntimeException: 在程序运行时可能会出现的异常</li>
+</ul>
+<h4 id="overload-overrite"><a href="#overload-overrite" class="headerlink" title="overload overrite"></a>overload overrite</h4><ul>
+<li>overload: 重载.指一个类中的方法与另一个方法同名，但是参数表不同</li>
+<li>overrite: 重写,覆盖.指子类覆盖父类的同名方法,提供自己的实现</li>
+</ul>
+<h4 id="jdk不同版本区别"><a href="#jdk不同版本区别" class="headerlink" title="jdk不同版本区别"></a>jdk不同版本区别</h4><ul>
+<li>jdk1.5: 泛型, for each遍历, 自动装包拆包, 枚举类, 可变参数, JUC</li>
+<li>jdk1.7: switch可以用字符串, try with resource</li>
+<li>jdk1.8: lambda表达式, optional接口, stream对集合类拓展</li>
+</ul>
+<h4 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h4><ul>
+<li>传统IO模型,同步阻塞(Blocking IO)</li>
+<li>基于字节流(inputstream/outputstream)和字符流(Reader/Writer,字节流+编码)</li>
+<li>面向流</li>
+<li>socket.accept(),read(),write()三个方法是同步阻塞的.因为不知道什么时候可以读,可以写,只能傻等.所以当单线程处理一个连接时,io会阻塞当前线程</li>
+<li>基于上面,可以使用多线程,每一个连接对应一个线程来处理</li>
+<li>使用线程池的问题是:在连接数大的时候,会同时维护很多线程,线程的创建,销毁,切换成本很高,且占用大量内存</li>
+</ul>
+<h4 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a>字节流</h4><ul>
+<li>:outputstream,inputstream 是二进制流,字节流更加底层</li>
+</ul>
+<h4 id="字符流"><a href="#字符流" class="headerlink" title="字符流"></a>字符流</h4><ul>
+<li>write,read 一个字符两个字节,是根据字节流加编码转换过来</li>
+</ul>
+<h4 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h4><ul>
+<li>同步非阻塞IO模型,支持io多路复用,可以解决高并发大量链接问题</li>
+<li>面向缓冲buffer,数据块</li>
+<li>同步: 当数据准备好以后,还是要主动同步进行io读写.而在真正的异步io中,用户线程不会进行数据的拷贝读写</li>
+<li>非阻塞: 在获取数据的时候,向selector注册channel后,不会一直阻塞等到数据来,而是数据来的时候主动通知,这样就是非阻塞</li>
+<li>单线程处理多个连接</li>
+<li>存在问题:连接数少的时候,并发程度不高时性能反而低.另外操作系统io实现有差异(通过netty,mina解决)</li>
+<li>zero-copy.内存映射.直接将文件从硬盘映射到内存,减少一次从硬盘到内核io的操作</li>
+</ul>
+<h4 id="常见io模型"><a href="#常见io模型" class="headerlink" title="常见io模型"></a>常见io模型</h4><p>io操作的两个阶段:1.等待数据,等待系统网卡可以读写|2.真正读写(数据从内核复制到用户空间)</p>
+<ul>
+<li>阻塞IO和非阻塞IO的区别在于第一步，发起IO请求是否会被阻塞，如果阻塞直到完成那么就是传统的阻塞IO，如果不阻塞，那么就是非阻塞IO。</li>
+<li>同步IO和异步IO的区别就在于第二个步骤是否阻塞，如果实际的IO读写阻塞请求进程，那么就是同步IO，因此阻塞IO、非阻塞IO、IO复用、信号驱动IO都是同步IO，如果不阻塞，而是操作系统做完IO两个阶段的操作再将结果返回，那么就是异步IO。</li>
+<li>阻塞io:从第一阶段就一直阻塞,等待数据到来完成读写.关心我要开始读了</li>
+<li>非阻塞io:第一阶段不断检查轮询,检查到可以读写时,完成读写.关心我可以读了</li>
+<li>io复用:进程受阻于select调用,等待多个套接字的一个变成可读.1个进程可以监视多个描述符</li>
+<li>信号驱动io:信号通知发起可以读写了,开始第二阶段.没有第一阶段</li>
+<li>异步io:第一阶段和第二阶段都是非阻塞异步的,只关心读完了的通知</li>
+</ul>
+<h4 id="select-poll-epoll"><a href="#select-poll-epoll" class="headerlink" title="select,poll,epoll"></a>select,poll,epoll</h4><p>linux支持io多路复用的系统内核调用有三种:select,poll,epoll.都是先锁住block,再将block拷贝到用户态</p>
+<ul>
+<li>select:基于数组遍历去实现,有最大连接数限制(因为数组大小有限制,2048)</li>
+<li>poll:基于链表遍历去实现,没有最大限制</li>
+<li>epoll:通过哈希表实现,事件通知方式回调</li>
+</ul>
+<h4 id="两种io多路复用模式-Reactor模式和-Proactor模式"><a href="#两种io多路复用模式-Reactor模式和-Proactor模式" class="headerlink" title="两种io多路复用模式: Reactor模式和 Proactor模式"></a>两种io多路复用模式: Reactor模式和 Proactor模式</h4><ul>
+<li>标准的经典的 Reactor模式:可以开始读写了<ol>
+<li>等待事件 (Reactor 的工作)</li>
+<li>发”已经可读”事件发给事先注册的事件处理者或者回调 ( Reactor 要做的)</li>
+<li>读数据 (用户代码要做的)</li>
+<li>处理数据 (用户代码要做的)</li>
+</ol>
+</li>
+<li>Proactor模式:已经完成读写了<ol>
+<li>等待事件 (Proactor 的工作)</li>
+<li>读数据(看，这里变成成了让 Proactor 做这个事情)</li>
+<li>把数据已经准备好的消息给用户处理函数，即事件处理者(Proactor 要做的)</li>
+<li>处理数据 (用户代码要做的)</li>
+</ol>
+</li>
+</ul>
+<h4 id="NIO组成-Reactor模式"><a href="#NIO组成-Reactor模式" class="headerlink" title="NIO组成(Reactor模式)"></a>NIO组成(Reactor模式)</h4><ol>
+<li>channel:读写数据的通道,双向.可以往buffer写数据,也可以从buffer读数据</li>
+<li>buffer:存放数据的地方</li>
+<li>selector:单线程处理多个channel</li>
+</ol>
+<h4 id="String-Stringbuilder-Stringbuffer"><a href="#String-Stringbuilder-Stringbuffer" class="headerlink" title="String,Stringbuilder,Stringbuffer"></a>String,Stringbuilder,Stringbuffer</h4><ul>
+<li>String: 字符串常量,不可变</li>
+<li>StringBuilder: 字符串变量,可变(append时不会创建新的字符串),不支持并发,单线程用,速度快    </li>
+<li>StringBuffer: 字符串变量,可变,支持并发(方法用sync锁修饰),可以在多线程使用,速度慢</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/20/collection-summary/" rel="next" title="java集合总结">
+                <i class="fa fa-chevron-left"></i> java集合总结
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/24/webx-framework/" rel="prev" title="webx framework 源码解析">
+                webx framework 源码解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="nichijouYC" />
+          <p class="site-author-name" itemprop="name">nichijouYC</p>
+          <p class="site-description motion-element" itemprop="description">纵使疾风起，人生不言弃</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/nichijouyc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#java基础"><span class="nav-number">1.</span> <span class="nav-text">java基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#8种基本类型"><span class="nav-number">1.1.</span> <span class="nav-text">8种基本类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#equals-hashcode"><span class="nav-number">1.2.</span> <span class="nav-text">equals,hashcode,==</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Object类中的方法"><span class="nav-number">1.3.</span> <span class="nav-text">Object类中的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#try-catch的执行顺序和return"><span class="nav-number">1.4.</span> <span class="nav-text">try-catch的执行顺序和return</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接口与抽象类区别"><span class="nav-number">1.5.</span> <span class="nav-text">接口与抽象类区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子类-父类的构造方法-静态块的执行顺序"><span class="nav-number">1.6.</span> <span class="nav-text">子类,父类的构造方法,静态块的执行顺序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异常相关的分类"><span class="nav-number">1.7.</span> <span class="nav-text">异常相关的分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#overload-overrite"><span class="nav-number">1.8.</span> <span class="nav-text">overload overrite</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jdk不同版本区别"><span class="nav-number">1.9.</span> <span class="nav-text">jdk不同版本区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BIO"><span class="nav-number">1.10.</span> <span class="nav-text">BIO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字节流"><span class="nav-number">1.11.</span> <span class="nav-text">字节流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符流"><span class="nav-number">1.12.</span> <span class="nav-text">字符流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NIO"><span class="nav-number">1.13.</span> <span class="nav-text">NIO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见io模型"><span class="nav-number">1.14.</span> <span class="nav-text">常见io模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#select-poll-epoll"><span class="nav-number">1.15.</span> <span class="nav-text">select,poll,epoll</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两种io多路复用模式-Reactor模式和-Proactor模式"><span class="nav-number">1.16.</span> <span class="nav-text">两种io多路复用模式: Reactor模式和 Proactor模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NIO组成-Reactor模式"><span class="nav-number">1.17.</span> <span class="nav-text">NIO组成(Reactor模式)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#String-Stringbuilder-Stringbuffer"><span class="nav-number">1.18.</span> <span class="nav-text">String,Stringbuilder,Stringbuffer</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nichijouYC</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
